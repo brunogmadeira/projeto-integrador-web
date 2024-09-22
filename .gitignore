@@ -1,0 +1,23 @@
+# Ignorar a pasta node_modules
+node_modules/
+
+# Ignorar o arquivo .env
+.env
+
+# Ignorar o arquivo README
+README
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar a pasta build
+build/
+
+# Ignorar a pasta .next
+.next/
+
+# Ignorar a pasta dist
+dist/
+
+# Ignorar o diretório de saída do Docker
+docker-compose.override.yml
