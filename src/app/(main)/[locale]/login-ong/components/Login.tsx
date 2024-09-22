@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
+
 const Login = () => {
   return (
     <div className="max-w-md mx-auto p-4 border border-gray-400 rounded-lg">
