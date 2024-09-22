@@ -7,5 +7,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copiar os arquivos do front-end (ajuste o caminho conforme necessário)
 COPY /dist /usr/share/nginx/html
 
+
 # Expor a porta 80
 EXPOSE 80

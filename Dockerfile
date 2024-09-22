@@ -14,6 +14,7 @@ RUN npm install
 # Copie o restante dos arquivos do projeto
 COPY . .
 
+
 # Porta utilizada no localhost:3000
 EXPOSE 3000
 
