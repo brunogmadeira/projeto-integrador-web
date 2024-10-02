@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Button from './Button';
 import Link from 'next/link';
 import Image from 'next/image';
-import logoLogin from '../../../../assets/images/login-visitante/logo-login.png';
 
 const StyledInput = styled.input`
   border: none;
@@ -54,7 +53,13 @@ const Input = () => {
     <div className="w-full max-w-md flex flex-col items-center p-8">
       <form className="w-full">
         <LogoContainer>
-          <Image src={logoLogin} alt="Logo do Login onde mostra um gato e um cachorro junto ao nome da ONG Miados, Latidos e Cia" layout="responsive" width={200} height={200} />
+          <Image 
+            src="/assets/images/login-visitante/logo-login.png" 
+            alt="Logo do Login onde mostra um gato e um cachorro junto ao nome da ONG Miados, Latidos e Cia" 
+            layout="responsive" 
+            width={200} 
+            height={200} 
+          />
         </LogoContainer>
 
         <div className="mb-5">
