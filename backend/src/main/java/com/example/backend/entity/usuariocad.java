@@ -14,19 +14,19 @@ public class usuariocad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idusuario;
 
-    @Column(length = 80, nullable = false)
+    @Column(length = 80)
     private String nome;
 
     @Column(nullable = true)
     private Long telefone_celular;
 
-    @Column(length = 80, nullable = false)
+    @Column(length = 80)
     private String email;
 
-    @Column(length = 80, nullable = false)
+    @Column(length = 80)
     private String senha;
 
-    @Column(nullable = false)
+    @Column()
     private Integer tipo_usuario;
 
     @Column(length = 80)

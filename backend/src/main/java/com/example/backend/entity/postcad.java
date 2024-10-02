@@ -15,10 +15,10 @@ public class postcad implements Serializable {
     private Integer idpost;
 
     @ManyToOne
-    @JoinColumn(name = "idusuario", nullable = false)
+    @JoinColumn(name = "idusuario")
     private usuariocad usuario;
 
-    @Column(length = 80, nullable = false)
+    @Column(length = 80)
     private String titulo;
 
     @Column(length = 20)
@@ -45,19 +45,16 @@ public class postcad implements Serializable {
     @Column(length = 80)
     private String contato;
 
-    @Column(nullable = false)
+    @Column()
     private Integer status;
 
-    @Lob
-    @Column(name = "imagem")
-    private byte[] imagem;
 
     public postcad() {
     }
 
     public postcad(Integer idpost, usuariocad usuario, String titulo, String nome_causa, String filtro_animal,
                    String filtro_raca, String filtro_porte, String filtro_causa, String descricao,
-                   String chavepix, String contato, Integer status, byte[] imagem) {
+                   String chavepix, String contato, Integer status) {
         this.idpost = idpost;
         this.usuario = usuario;
         this.titulo = titulo;
@@ -70,7 +67,6 @@ public class postcad implements Serializable {
         this.chavepix = chavepix;
         this.contato = contato;
         this.status = status;
-        this.imagem = imagem;
     }
 
     public Integer getIdpost() {
@@ -169,31 +165,7 @@ public class postcad implements Serializable {
         this.status = status;
     }
 
-    public byte[] getImagem() {
-        return imagem;
-    }
 
-    public void setImagem(byte[] imagem) {
-        this.imagem = imagem;
-    }
-
-    @Override
-    public String toString() {
-        return "postcad{" +
-                "idpost=" + idpost +
-                ", titulo='" + titulo + '\'' +
-                ", nome_causa='" + nome_causa + '\'' +
-                ", filtro_animal='" + filtro_animal + '\'' +
-                ", filtro_raca='" + filtro_raca + '\'' +
-                ", filtro_porte='" + filtro_porte + '\'' +
-                ", filtro_causa='" + filtro_causa + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", chavepix='" + chavepix + '\'' +
-                ", contato='" + contato + '\'' +
-                ", status=" + status +
-                ", imagemSize=" + (imagem != null ? imagem.length : "null") +
-                '}';
-    }
 
     @Override
     public int hashCode() {
