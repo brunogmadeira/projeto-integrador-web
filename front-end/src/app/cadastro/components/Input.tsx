@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from './button';
-import Link from 'next/link';
 import Image from 'next/image';
 
 const StyledInput = styled.input`
@@ -24,14 +23,6 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
     border: 1px solid rgb(149, 191, 71);
-  }
-`;
-
-const ForgotPasswordLink = styled.a`
-  font-size: 14px;
-  color: black;
-  &:hover {
-    text-decoration: underline;
   }
 `;
 
@@ -65,6 +56,20 @@ const Input = () => {
         <div className="mb-5">
           <StyledInput
             type="text"
+            placeholder="Nome"
+            className="focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-5">
+          <StyledInput
+            type="text"
+            placeholder="Sobrenome"
+            className="focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-5">
+          <StyledInput
+            type="text"
             placeholder="Email"
             className="focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -76,15 +81,16 @@ const Input = () => {
             className="focus:outline-none focus:ring-2 focus:ring-blue-500" 
           />
         </div>
-        
-        <div className="mb-5 text-center">
-          <Link href="/esqueci-minha-senha" legacyBehavior>
-            <ForgotPasswordLink>ESQUECI MINHA SENHA</ForgotPasswordLink>
-          </Link>
+        <div className="mb-5">
+          <StyledInput
+            type="password"
+            placeholder="Confirmar Senha"
+            className="focus:outline-none focus:ring-2 focus:ring-blue-500" 
+          />
         </div>
 
         <div className="mt-6 w-full flex justify-center">
-          <Button label="Entrar" />
+          <Button label="Cadastrar" />
         </div>
       </form>
     </div>
