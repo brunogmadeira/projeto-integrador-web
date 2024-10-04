@@ -12,7 +12,7 @@ export function HeaderNavigation() {
   const HEADER_NAVIGATION = [
     {
       title: 'Sobre',
-      href: '/',
+      href: '/sobre',
     },
     {
       title: 'Home',

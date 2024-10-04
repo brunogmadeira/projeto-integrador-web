@@ -53,7 +53,7 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', marginTop: '20px' }}>
       <div style={{
         border: '2px solid #95bf47 ',
         borderRadius: '20px',

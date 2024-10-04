@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { useRouter } from 'next/navigation'; // Importa o useRouter para navegação
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -25,7 +26,13 @@ const StyledButton = styled.button`
 `;
 
 const Button = ({ label }: { label: string }) => {
-  return <StyledButton>{label}</StyledButton>;
+  const router = useRouter(); // Inicializa o hook de navegação
+
+  const handleClick = () => {
+    router.push('/sobre/page'); // Certifique-se de que a pasta 'sobre' existe dentro da pasta 'app'
+  };
+
+  return <StyledButton onClick={handleClick}>{label}</StyledButton>;
 };
 
 export default Button;
