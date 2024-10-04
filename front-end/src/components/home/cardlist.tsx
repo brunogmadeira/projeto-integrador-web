@@ -12,10 +12,10 @@ const CardList: React.FC = () => {
   const [titulo, setTitulo] = useState<string>('');
 
   useEffect(() => {
-    listaInicial();
+    initialList();
   }, []);
 
-  function listaInicial() {
+  function initialList() {
     const fetchItems = async () => {
       try {
         const response = await axios.get<postcad[]>('http://localhost:8080/api/postcad/list');
@@ -42,42 +42,43 @@ const CardList: React.FC = () => {
         setLoading(false);
       }
     } else {
-      listaInicial();
+      initialList();
     }
   };
 
   if (loading) return <div>Carregando...</div>;
   if (error) return <div>{error}</div>;
 
-  if (items.length === 0) {
-    return <div>Nenhum post encontrado.</div>;
-  }
-
   return (
     <div style={styles.container}>
       <Title titulo={titulo} setTitulo={setTitulo} onSearch={handleSearch} />
-      <div style={{
-        ...styles.cardList,
-        justifyContent: items.length === 1 ? 'flex-start' : 'center'
-      }}>
-        {items.map(postcad => (
-          <div key={postcad.idpost} style={styles.card}>
-            <img
-              src="/assets/images/post-ong/dog.png"
-              alt="Logo"
-              style={styles.image}
-            />
-            <div style={styles.cardContent}>
-              <h3 style={styles.title}>{postcad.titulo}</h3>
-              <p style={styles.description}>{postcad.descricao}</p>
+      {items.length === 0 ? (
+        <div style={styles.noItemsMessage}>
+          Nenhum post encontrado.
+        </div>
+      ) : (
+        <div style={{
+          ...styles.cardList,
+          justifyContent: items.length === 1 ? 'flex-start' : 'center'
+        }}>
+          {items.map(postcad => (
+            <div key={postcad.idpost} style={styles.card}>
+              <img
+                src="/assets/images/post-ong/dog.png"
+                alt="Logo"
+                style={styles.image}
+              />
+              <div style={styles.cardContent}>
+                <h3 style={styles.title}>{postcad.titulo}</h3>
+                <p style={styles.description}>{postcad.descricao} <br />Nome: {postcad.nome_causa}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
-
 
 const styles: { [key: string]: CSSProperties } = {
   container: {
@@ -86,7 +87,6 @@ const styles: { [key: string]: CSSProperties } = {
     alignItems: 'center',
     padding: '20px',
     minWidth: '100%'
-
   },
   cardList: {
     display: 'flex',
@@ -102,11 +102,11 @@ const styles: { [key: string]: CSSProperties } = {
     borderRadius: '8px',
     overflow: 'hidden',
     width: '45%',
-    minWidth:'45%',
+    minWidth: '45%',
     minHeight: '300px',
     height: 'auto',
     boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    border: '3px solid #95bf47 ',
+    border: '3px solid #95bf47',
   },
   image: {
     margin: '5%',
@@ -114,7 +114,7 @@ const styles: { [key: string]: CSSProperties } = {
     height: '230px',
     objectFit: 'cover',
     borderRadius: '8px',
-    border: '2px solid #95bf47 ',
+    border: '2px solid #95bf47',
   },
   cardContent: {
     padding: '16px',
@@ -138,17 +138,22 @@ const styles: { [key: string]: CSSProperties } = {
     minHeight: '80px',
   },
   titleContainer: {
-    width: '100%', 
+    width: '100%',
     border: '3px solid #95bf47',
-    borderRadius: '8px', 
-    padding: '10px', 
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)', 
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  noItemsMessage: {
+    marginTop: '20px',
+    fontSize: '18px',
+    color: '#95bf47',
+    textAlign: 'center',
+  },
 };
-
 
 const mediaQueries = {
   '@media (min-width: 768px)': {
@@ -188,7 +193,7 @@ const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: Rea
               border: 'none',
               padding: '4px 16px',
               borderRadius: '0',
-              width: '100%', 
+              width: '100%',
               height: '30px',
               backgroundColor: '#D9D9D9',
               color: '#4F4F4F',
@@ -202,7 +207,7 @@ const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: Rea
             style={{
               marginLeft: '8px',
               padding: '6px 12px',
-              backgroundColor: '#95bf47 ',
+              backgroundColor: '#95bf47',
               color: 'white',
               border: 'none',
               borderRadius: '4px',

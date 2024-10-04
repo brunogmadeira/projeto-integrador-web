@@ -14,7 +14,7 @@ public interface postsRepository extends JpaRepository<postcad, Integer> {
     @Query("SELECT p FROM postcad p")
     List<postcad> findAll();
 
-    @Query("SELECT p FROM postcad p WHERE p.titulo LIKE %:titulo%")
+    @Query("SELECT p FROM postcad p WHERE p.titulo LIKE %:titulo% or p.descricao LIKE %:titulo%")
     List<postcad> findAllByFilter(@Param("titulo") String titulo);
 
 }

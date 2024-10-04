@@ -13,6 +13,7 @@ const Form: React.FC = () => {
   const [descricao, setDescricao] = useState('');
   const [chavePix, setChavePix] = useState('');
   const [contato, setContato] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/\D/g, '');
@@ -40,15 +41,27 @@ const Form: React.FC = () => {
       contato: contato || 'contato@exemplo.com',
       status: 1,
     };
+
     try {
       const response = await axios.put('http://localhost:8080/api/postcad/save', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response.data);
+
+      if (response.status === 200) {
+        setShowModal(true);
+        setTitle('');
+        setPetName('');
+        setSelectedAnimal('');
+        setSelectedRaca('');
+        setDescricao('');
+        setChavePix('');
+        setContato('');
+      }
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
+      window.alert('Erro ao salvar a postagem. Tente novamente.');
     }
   };
 
@@ -237,8 +250,55 @@ const Form: React.FC = () => {
           </button>
         </form>
       </div>
+      {showModal && (
+        <div style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: 'white',
+          padding: '20px',
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+          borderRadius: '8px',
+          zIndex: 1000,
+        }}>
+          <h3 style={{ color: '#333', marginBottom: '15px', fontSize: '18px', textAlign: 'center' }}>
+            Suas informações foram salvas com sucesso!
+          </h3>
+          <button
+            onClick={() => setShowModal(false)}
+            style={{
+              backgroundColor: '#95bf47',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              padding: '10px 20px',
+              cursor: 'pointer',
+              fontSize: '16px',
+              width: '100%',
+            }}
+          >
+            Fechar
+          </button>
+        </div>
+      )}
+
+      {}
+      {showModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 999,
+        }}></div>
+      )}
     </div>
   );
 };
+
+
 
 export default Form;

@@ -20,7 +20,7 @@ export function HeaderNavigation() {
     },
     {
       title: 'Solicitações',
-      href: '/solicitacoes',
+      href: '/notfound',
     },
     {
       title: 'Post',
@@ -28,13 +28,15 @@ export function HeaderNavigation() {
     },
     {
       title: 'Perfil',
-      href: '/perfil',
+      href: '/notfound',
     },
   ];
 
   const fontStyle = {
     fontFamily: 'Poppins, sans-serif',
-    fontWeight: '600',
+    fontSize: '20px',
+    fontWeight: '900',
+    color: 'white',
   };
 
   return (
@@ -55,7 +57,7 @@ export function HeaderNavigation() {
                 <Link
                   id={item.title + '-element'}
                   href={item.href}
-                  className={`${navigationMenuTriggerStyle()} text-black text-2xl transition-colors bg-transparent hover:bg-white hover:text-black`}
+                  className={`${navigationMenuTriggerStyle()} text-black text-2xl transition-colors bg-transparent hover:bg-[#95BF47] hover:text-black`}
                   style={fontStyle}
                 >
                   {item.title}

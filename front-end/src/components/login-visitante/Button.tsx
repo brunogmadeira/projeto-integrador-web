@@ -1,8 +1,7 @@
 "use client";
 
 import React from 'react';
-/* import { useRouter } from 'next/navigation'; // Importa o useRouter para navegação
- */import styled from 'styled-components';
+import styled from 'styled-components';
 
 const StyledButton = styled.a`
   background-color: rgb(149, 191, 71);
@@ -13,6 +12,10 @@ const StyledButton = styled.a`
   max-width: 300px;
   margin-top: 10px;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   @media (max-width: 600px) {
     font-size: 14px;
@@ -26,11 +29,11 @@ const StyledButton = styled.a`
 `;
 
 const Button = ({ label }: { label: string }) => {
-/*   const router = useRouter(); 
+  // const router = useRouter(); 
 
-  const handleClick = () => {
-    router.push('/sobre');
-  }; */
+  // const handleClick = () => {
+  //   router.push('/sobre');
+  // }; 
 
   return <StyledButton /* onClick={handleClick} */ href='/sobre'>{label}</StyledButton>;
 };
