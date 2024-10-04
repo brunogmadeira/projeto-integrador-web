@@ -2,7 +2,13 @@
 
 import React from 'react';
 
-const NamePet = () => {
+interface InputProps {
+  placeholder: string;
+  marginBottom?: string;
+  marginTop?: string;
+}
+
+const Input: React.FC<InputProps> = ({ placeholder, marginBottom, marginTop }) => {
   return (
     <div style={{
       display: 'flex',
@@ -10,20 +16,23 @@ const NamePet = () => {
       justifyContent: 'flex-start',
       alignItems: 'center',
       padding: '0',
-      marginTop: '-90px', // Espaço entre Title e NamePet
+      marginTop: marginTop || '0',
+      marginBottom: marginBottom || '20px', 
+      width: '100%', 
     }}>
       <form className="w-full max-w-md">
-        <div className="mb-5" style={{ marginLeft: '-50px', marginRight: '-10px' }}>
+        <div className="mb-5" style={{ marginLeft: 'auto', marginRight: 'auto', width: '100%'}}>
           <input
             type="text"
-            placeholder="Nome do Pet"
+            placeholder={placeholder}
             className="focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{
               border: 'none',
               padding: '4px 16px',
               borderRadius: '0',
-              width: '120%',
-              height: '30px',
+              width: '100%', 
+              maxWidth: '400px', 
+              height: '40px',
               backgroundColor: '#D9D9D9',
               color: '#4F4F4F',
               fontSize: '16px',
@@ -36,6 +45,14 @@ const NamePet = () => {
               opacity: 1;
               text-align: center;
             }
+
+            @media (max-width: 768px) {
+              input {
+                width: 90vw; 
+                max-width: none;
+                height: 35px;
+              }
+            }
           `}</style>
         </div>
       </form>
@@ -43,4 +60,4 @@ const NamePet = () => {
   );
 };
 
-export default NamePet;
+export default Input;
