@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { postcad } from '@/app/entity/postcad';
+import { postcad } from '@/entity/postcad';
 import axios from 'axios';
 
 const Form: React.FC = () => {

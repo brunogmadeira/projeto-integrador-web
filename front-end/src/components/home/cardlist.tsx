@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import axios from 'axios';
 import React, { useEffect, useState, CSSProperties } from 'react';
-import { postcad } from '@/app/entity/postcad';
+import { postcad } from '@/entity/postcad';
 
 const CardList: React.FC = () => {
   const [items, setItems] = useState<postcad[]>([]);

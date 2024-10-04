@@ -1,5 +1,5 @@
 import React from 'react';
-import CardList from './components/cardlist';
+import CardList from '../../components/home/cardlist';
 import { HeaderNavigation } from '@/components/header/header-navigation';
 
 const Page: React.FC = () => {

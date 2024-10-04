@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react';
-import { useRouter } from 'next/navigation'; // Importa o useRouter para navegação
-import styled from 'styled-components';
+/* import { useRouter } from 'next/navigation'; // Importa o useRouter para navegação
+ */import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const StyledButton = styled.a`
   background-color: rgb(149, 191, 71);
   color: black;
   padding: 6px 12px;
@@ -26,13 +26,13 @@ const StyledButton = styled.button`
 `;
 
 const Button = ({ label }: { label: string }) => {
-  const router = useRouter(); // Inicializa o hook de navegação
+/*   const router = useRouter(); 
 
   const handleClick = () => {
-    router.push('/sobre/page'); // Certifique-se de que a pasta 'sobre' existe dentro da pasta 'app'
-  };
+    router.push('/sobre');
+  }; */
 
-  return <StyledButton onClick={handleClick}>{label}</StyledButton>;
+  return <StyledButton /* onClick={handleClick} */ href='/sobre'>{label}</StyledButton>;
 };
 
 export default Button;
