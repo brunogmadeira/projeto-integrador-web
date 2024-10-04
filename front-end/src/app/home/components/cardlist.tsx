@@ -9,7 +9,7 @@ const CardList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [titulo, setTitulo] = useState<string>('');
-  
+
   useEffect(() => {
     listaInicial();
   }, []);
@@ -30,7 +30,7 @@ const CardList: React.FC = () => {
 
   const handleSearch = async () => {
     if (titulo.length > 0) {
-      setLoading(true); 
+      setLoading(true);
       try {
         const response = await axios.get<postcad[]>(`http://localhost:8080/api/postcad/list/filtro/` + titulo);
         setItems(response.data);
@@ -55,13 +55,16 @@ const CardList: React.FC = () => {
   return (
     <div style={styles.container}>
       <Title titulo={titulo} setTitulo={setTitulo} onSearch={handleSearch} />
-      <div style={styles.cardList}>
+      <div style={{
+        ...styles.cardList,
+        justifyContent: items.length === 1 ? 'flex-start' : 'center'
+      }}>
         {items.map(postcad => (
           <div key={postcad.idpost} style={styles.card}>
             <img
               src="/assets/images/post-ong/dog.png"
               alt="Logo"
-              style={styles.image} // Estilo da imagem
+              style={styles.image}
             />
             <div style={styles.cardContent}>
               <h3 style={styles.title}>{postcad.titulo}</h3>
@@ -74,71 +77,87 @@ const CardList: React.FC = () => {
   );
 };
 
-// Estilos com tipagem correta
+
 const styles: { [key: string]: CSSProperties } = {
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: '20px',
+    minWidth: '100%'
+
   },
   cardList: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '16px', // Espaço entre os cards
-    justifyContent: 'center', // Centraliza os cards
+    gap: '16px',
+    justifyContent: 'center',
     marginTop: '20px',
-    maxWidth: '1500px', // Limita a largura total do contêiner
+    maxWidth: '45%',
+    minWidth: '100%'
   },
   card: {
     display: 'flex',
-    borderRadius: '8px', // Mantém a borda arredondada do card
+    borderRadius: '8px',
     overflow: 'hidden',
-    width: '45%', // Ajuste a largura para caber apenas 2 cards por linha
-    height: '300px', // Mantém a altura dos cards
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)', // Sombra sutil
-    border: '3px solid #A0D8A0', // Borda verde na imagem    
+    width: '45%',
+    minWidth:'45%',
+    minHeight: '300px',
+    height: 'auto',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+    border: '3px solid #95bf47 ',
   },
   image: {
-    marginTop: '30px',
-    width: '230px', // Defina a largura da imagem
-    height: '230px', // Defina a altura da imagem
-    objectFit: 'cover', // Mantém a proporção da imagem
-    borderRadius: '8px', // Arredonda os cantos da imagem
-    border: '2px solid #A0D8A0', // Borda verde na imagem
+    margin: '5%',
+    width: '230px',
+    height: '230px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+    border: '2px solid #95bf47 ',
   },
   cardContent: {
-    padding: '16px', // Espaçamento interno do card
+    padding: '16px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-start', // Alinha o conteúdo à esquerda
+    alignItems: 'flex-start',
+    flexGrow: 1,
   },
   title: {
-    paddingTop: '10%', // Padding no topo do título
-    textAlign: 'left', // Alinhamento à esquerda
-    fontSize: '20px', // Tamanho do título
-    fontWeight: 'bold', // Negrito
-    color: 'green',
+    textAlign: 'left',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#95bf47',
   },
   description: {
-    textAlign: 'left', // Alinhamento à esquerda
-    fontSize: '14px', // Tamanho da descrição
-    marginTop: '8px', // Margem superior para separação
+    textAlign: 'left',
+    fontSize: '14px',
+    marginTop: '8px',
     color: 'black',
+    minHeight: '80px',
+  },
+  titleContainer: {
+    width: '100%', 
+    border: '3px solid #95bf47',
+    borderRadius: '8px', 
+    padding: '10px', 
+    boxShadow: '0 2px 5px rgba(0,0,0,0.1)', 
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };
 
-// Estilos responsivos
+
 const mediaQueries = {
   '@media (min-width: 768px)': {
     card: {
-      width: '45%', // Apenas 2 cards por linha em telas médias e grandes
+      width: '45%',
     },
   },
   '@media (min-width: 1024px)': {
     card: {
-      width: '30%', // Para telas grandes, ajuste para 3 cards por linha
+      width: '30%',
     },
   },
 };
@@ -148,6 +167,7 @@ Object.assign(styles, mediaQueries);
 const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: React.Dispatch<React.SetStateAction<string>>; onSearch: () => void }) => {
   return (
     <div style={{
+      ...styles.titleContainer,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
@@ -156,10 +176,10 @@ const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: Rea
       marginBottom: '20px',
     }}>
       <form className="w-full max-w-md" onSubmit={(e) => { e.preventDefault(); onSearch(); }}>
-        <div className="mb-20" style={{ display: 'flex', marginLeft: '-50px', marginRight: '-10px', alignItems: 'center' }}>
+        <div className="mb-5 mt-5" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <input
             type="text"
-            placeholder="Título"
+            placeholder="Digite sua busca..."
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             className="focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -167,7 +187,7 @@ const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: Rea
               border: 'none',
               padding: '4px 16px',
               borderRadius: '0',
-              width: '120%',
+              width: '100%', 
               height: '30px',
               backgroundColor: '#D9D9D9',
               color: '#4F4F4F',
@@ -177,11 +197,11 @@ const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: Rea
           />
           <button
             type="button"
-            onClick={onSearch} // Chama a função de busca ao clicar
+            onClick={onSearch}
             style={{
               marginLeft: '8px',
               padding: '6px 12px',
-              backgroundColor: '#4CAF50',
+              backgroundColor: '#95bf47 ',
               color: 'white',
               border: 'none',
               borderRadius: '4px',

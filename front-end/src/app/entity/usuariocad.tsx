@@ -1,8 +1,8 @@
 export interface usuariocad {
     idusuario: number; 
-    nome: string; 
+    nome?: string; 
     telefone_celular?: number; 
-    email: string; 
-    senha: string; 
-    tipo_usuario: number; 
+    email?: string; 
+    senha?: string; 
+    tipo_usuario?: number; 
     token?: string;}
