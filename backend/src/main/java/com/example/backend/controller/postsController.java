@@ -29,6 +29,13 @@ public class postsController {
         return ResponseEntity.ok(postcads);
     }
 
+    @GetMapping("/list/filtro/{filtro}")
+    public ResponseEntity<List<postcad>> listAllPostcadsFilter(@PathVariable String filtro){
+        List<postcad> postcads = postcadRepository.findAllByFilter(filtro);
+        return ResponseEntity.ok(postcads);
+    }
+
+
     @GetMapping("/test")
     public ResponseEntity<List<usuariocad>> test() {
         List<usuariocad> user = uRepository.findAll();

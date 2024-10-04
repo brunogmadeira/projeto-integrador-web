@@ -1,6 +1,6 @@
 import { usuariocad } from "./usuariocad";
 
-export interface Post {
+export interface postcad {
     idpost: number; 
     usuario: usuariocad; 
     titulo: string; 

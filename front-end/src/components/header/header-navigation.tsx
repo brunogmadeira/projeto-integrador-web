@@ -15,7 +15,7 @@ export function HeaderNavigation() {
     },
     {
       title: 'Home',
-      href: '/sobre',
+      href: '/home',
     },
     {
       title: 'Solicitações',
@@ -23,7 +23,7 @@ export function HeaderNavigation() {
     },
     {
       title: 'Post',
-      href: '/',
+      href: '/post-ong',
     },
     {
       title: 'Perfil',
@@ -40,7 +40,7 @@ export function HeaderNavigation() {
               <Link
                 id={item.title + '-element'}
                 href={item.href}
-                className={`${navigationMenuTriggerStyle()} text-white text-xl font-bold transition-colors bg-transparent hover:bg-white hover:text-black`}
+                className={`${navigationMenuTriggerStyle()} text-black text-xl font-bold transition-colors bg-transparent hover:bg-white hover:text-black`}
               >
                 {item.title}
               </Link>
