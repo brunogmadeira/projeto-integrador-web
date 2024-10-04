@@ -38,32 +38,35 @@ export function HeaderNavigation() {
   };
 
   return (
-    <NavigationMenu className="flex items-center h-24 bg-[#6C44A4] w-full -mx-29">
-      <div className="flex items-center justify-between w-full px-20 pr-80">
-        <Image 
-          src="/assets/images/header/logo-login.png"
-          alt="Logo"
-          width={130}
-          height={130} 
-          layout="intrinsic"
-          className="mr-4"
-          style={{ marginBottom: '0rem' }}
-        />
-        <NavigationMenuList className="flex space-x-8"> 
-          {HEADER_NAVIGATION.map((item) => (
-            <NavigationMenuItem key={item.title}>
-              <Link
-                id={item.title + '-element'}
-                href={item.href}
-                className={`${navigationMenuTriggerStyle()} text-black text-2xl transition-colors bg-transparent hover:bg-white hover:text-black`}
-                style={fontStyle}
-              >
-                {item.title}
-              </Link>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </div>
-    </NavigationMenu>
+    <div className="w-full bg-[#6C44A4]">
+      <NavigationMenu className="flex items-center h-24 w-full">
+        <div className="flex items-center justify-center w-full"> 
+          <div className="flex items-center"> 
+            <Image 
+              src="/assets/images/header/logo-login.png"
+              alt="Logo"
+              width={130}
+              height={130} 
+              layout="intrinsic"
+              className="mr-4"
+            />
+            <NavigationMenuList className="flex space-x-8"> 
+              {HEADER_NAVIGATION.map((item) => (
+                <NavigationMenuItem key={item.title}>
+                  <Link
+                    id={item.title + '-element'}
+                    href={item.href}
+                    className={`${navigationMenuTriggerStyle()} text-black text-2xl transition-colors bg-transparent hover:bg-white hover:text-black`}
+                    style={fontStyle}
+                  >
+                    {item.title}
+                  </Link>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </div>
+        </div>
+      </NavigationMenu>
+    </div>
   );
 }
