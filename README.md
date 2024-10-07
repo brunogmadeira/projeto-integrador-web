@@ -12,7 +12,7 @@
 
 - Documentation: `docs: Atualiza a documentação.`
 
-- Style: style: `Faz ajustes de estilo (formatação, ponto e vírgula, etc.).`
+- Style: `style: Faz ajustes de estilo (formatação, ponto e vírgula, etc.).`
 
 - Test: test: `Adiciona ou modifica testes.`
 
