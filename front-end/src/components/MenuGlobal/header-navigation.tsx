@@ -14,7 +14,7 @@ export function HeaderNavigation() {
     { title: 'Sobre', href: '/sobre' },
     { title: 'Home', href: '/home' },
     { title: 'Solicitações', href: '/notfound' },
-    { title: 'Post', href: '/post-ong' },
+    { title: 'Post', href: '/post' },
     { title: 'Perfil', href: '/notfound' },
   ];
 
