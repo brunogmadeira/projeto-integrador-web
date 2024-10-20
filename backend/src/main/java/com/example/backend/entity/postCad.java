@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "postcad")
-public class postcad implements Serializable {
+public class postCad implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -16,7 +16,7 @@ public class postcad implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "idusuario")
-    private usuariocad usuario;
+    private usuarioCad usuario;
 
     @Column(length = 80)
     private String titulo;
@@ -52,10 +52,10 @@ public class postcad implements Serializable {
     private String imagem;
 
 
-    public postcad() {
+    public postCad() {
     }
 
-    public postcad(Integer idpost, usuariocad usuario, String titulo, String nome_causa, String filtro_animal,
+    public postCad(Integer idpost, usuarioCad usuario, String titulo, String nome_causa, String filtro_animal,
                    String filtro_raca, String filtro_porte, String filtro_causa, String descricao,
                    String chavepix, String contato, Integer status, String imagem) {
         this.idpost = idpost;
@@ -81,11 +81,11 @@ public class postcad implements Serializable {
         this.idpost = idpost;
     }
 
-    public usuariocad getUsuario() {
+    public usuarioCad getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(usuariocad usuario) {
+    public void setUsuario(usuarioCad usuario) {
         this.usuario = usuario;
     }
 
@@ -189,7 +189,7 @@ public class postcad implements Serializable {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        postcad other = (postcad) obj;
+        postCad other = (postCad) obj;
         return Objects.equals(idpost, other.idpost);
     }
 }

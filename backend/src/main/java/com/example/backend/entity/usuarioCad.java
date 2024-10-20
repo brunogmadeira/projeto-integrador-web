@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "usuariocad")
-public class usuariocad implements Serializable {
+public class usuarioCad implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -32,10 +32,10 @@ public class usuariocad implements Serializable {
     @Column(length = 80)
     private String token;
 
-    public usuariocad() {
+    public usuarioCad() {
     }
 
-    public usuariocad(Integer idusuario, String nome, Long telefone_celular, String email, String senha, Integer tipo_usuario, String token) {
+    public usuarioCad(Integer idusuario, String nome, Long telefone_celular, String email, String senha, Integer tipo_usuario, String token) {
         this.idusuario = idusuario;
         this.nome = nome;
         this.telefone_celular = telefone_celular;
@@ -114,7 +114,7 @@ public class usuariocad implements Serializable {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        usuariocad other = (usuariocad) obj;
+        usuarioCad other = (usuarioCad) obj;
         return Objects.equals(idusuario, other.idusuario);
     }
 }
