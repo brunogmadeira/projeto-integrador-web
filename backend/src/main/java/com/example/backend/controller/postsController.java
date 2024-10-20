@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.backend.entity.postcad;
 import com.example.backend.entity.usuariocad;
@@ -35,13 +36,6 @@ public class postsController {
         return ResponseEntity.ok(postcads);
     }
 
-
-    @GetMapping("/test")
-    public ResponseEntity<List<usuariocad>> test() {
-        List<usuariocad> user = uRepository.findAll();
-        return ResponseEntity.ok(user);
-    }
-
     @PutMapping("/save")
     public ResponseEntity<postcad> savePost(
           @RequestBody postcad post) throws IOException {
@@ -49,8 +43,12 @@ public class postsController {
         return ResponseEntity.ok(savedPostcad);
     }
 
-
-
-
+    @PutMapping("/editpost")
+    public ResponseEntity<postcad> editpost(
+            @PathVariable int id, @RequestBody postcad post
+            ){
+        postcad postatt = postcadRepository.save(post);
+        return ResponseEntity.ok(postatt);
+    }
 
 }

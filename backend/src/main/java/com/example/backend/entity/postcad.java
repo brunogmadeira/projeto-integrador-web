@@ -48,13 +48,16 @@ public class postcad implements Serializable {
     @Column()
     private Integer status;
 
+    @Column
+    private String imagem;
+
 
     public postcad() {
     }
 
     public postcad(Integer idpost, usuariocad usuario, String titulo, String nome_causa, String filtro_animal,
                    String filtro_raca, String filtro_porte, String filtro_causa, String descricao,
-                   String chavepix, String contato, Integer status) {
+                   String chavepix, String contato, Integer status, String imagem) {
         this.idpost = idpost;
         this.usuario = usuario;
         this.titulo = titulo;
@@ -67,6 +70,7 @@ public class postcad implements Serializable {
         this.chavepix = chavepix;
         this.contato = contato;
         this.status = status;
+        this.imagem = imagem;
     }
 
     public Integer getIdpost() {
@@ -165,7 +169,12 @@ public class postcad implements Serializable {
         this.status = status;
     }
 
-
+    public String getImagem() {
+        return imagem;
+    }
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
 
     @Override
     public int hashCode() {
