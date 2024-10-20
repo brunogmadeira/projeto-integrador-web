@@ -4,11 +4,7 @@ import React from 'react';
 import Input from '@/components/LoginPage/Input';
 
 const LoginVisitante = () => {
-  return (
-    <main>
-      <Input />
-    </main>
-  );
+  return <Input />
 };
 
 export default LoginVisitante;

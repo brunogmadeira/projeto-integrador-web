@@ -33,7 +33,7 @@ const Input = () => {
       <Link href="/cadastro">
         <LinkStyled> NÃO POSSUI LOGIN? CADASTRE-SE! </LinkStyled>
       </Link>
-      <Link href="/sobre">
+      <Link href={'/sobre'}>
         <StyledButton>Entrar</StyledButton>
       </Link>
     </Main>
