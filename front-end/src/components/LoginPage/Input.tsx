@@ -33,8 +33,9 @@ const Input = () => {
       <Link href="/cadastro">
         <LinkStyled> NÃO POSSUI LOGIN? CADASTRE-SE! </LinkStyled>
       </Link>
-      
-      <StyledButton>Entrar</StyledButton>
+      <Link href="/sobre">
+        <StyledButton>Entrar</StyledButton>
+      </Link>
     </Main>
   );
 };
