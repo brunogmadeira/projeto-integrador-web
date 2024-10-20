@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Input from '@/components/login-visitante/Input';
+import Input from '@/components/LoginPage/Input';
 
 const LoginVisitante = () => {
   return (

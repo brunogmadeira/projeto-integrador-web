@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Input from '../../components/cadastro/Input';
+import Input from '../../components/CadastroPage/Input';
 
 const CadastroONGeVisitante = () => {
   return (

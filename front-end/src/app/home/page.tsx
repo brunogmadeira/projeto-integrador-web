@@ -1,6 +1,6 @@
 import React from 'react';
-import CardList from '../../components/home/cardlist';
-import { HeaderNavigation } from '@/components/header/header-navigation';
+import CardList from '../../components/HomePage/cardlist';
+import { HeaderNavigation } from '@/components/MenuGlobal/header-navigation';
 
 const Page: React.FC = () => {
   return (

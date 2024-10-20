@@ -51,7 +51,7 @@ export function HeaderNavigation() {
           className="rem"
         />
         <NavigationMenu>
-          <NavigationMenuList className="flex space-x-8"> 
+          <NavigationMenuList className="flex space-x-20"> 
             {HEADER_NAVIGATION.map((item) => (
               <NavigationMenuItem key={item.title}>
                 <Link
