@@ -13,4 +13,5 @@ export interface postcad {
     chavepix?: string; 
     contato?: string; 
     status: number; 
+    imagem: string;
 }

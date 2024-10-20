@@ -14,6 +14,7 @@ const Form: React.FC = () => {
   const [chavePix, setChavePix] = useState('');
   const [contato, setContato] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [imageBase64, setImageBase64] = useState<string>(''); // Inicializa como string vazia
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/\D/g, '');
@@ -21,6 +22,18 @@ const Form: React.FC = () => {
       .replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3')
       .slice(0, 15);
     setContato(formattedPhone);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImageBase64(base64String.split(',')[1]); // remove o prefixo 'data:image/jpeg;base64,' ou similar
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -40,6 +53,7 @@ const Form: React.FC = () => {
       chavepix: chavePix || 'chave-pix-padrao',
       contato: contato || 'contato@exemplo.com',
       status: 1,
+      imagem: imageBase64, // Adiciona a imagem convertida em base64 aqui
     };
 
     try {
@@ -58,6 +72,7 @@ const Form: React.FC = () => {
         setDescricao('');
         setChavePix('');
         setContato('');
+        setImageBase64(''); // Limpa a imagem após o envio
       }
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
@@ -75,18 +90,37 @@ const Form: React.FC = () => {
         maxWidth: '800px',
         backgroundColor: '#ededed',
       }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#9e86d8', fontWeight: 'bold', fontSize: '25px' }}>Postagem de Animais</h2> {}
-        <Image
-          src='/assets/images/post-ong/dog.png'
-          alt='Imagem de um cachorro'
-          width={500}
-          height={240}
-          quality={100}
-          style={{ marginBottom: '20px', display: 'block', margin: '0 auto' }} 
-        />
+        <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#9e86d8', fontWeight: 'bold', fontSize: '25px' }}>Postagem de Animais</h2>
+        
+        {}
+        {imageBase64 && (
+          <Image
+            src={`data:image/jpeg;base64,${imageBase64}`}
+            alt='Imagem do Pet'
+            width={500}
+            height={240}
+            quality={100}
+            style={{ marginBottom: '20px',maxHeight: '400px', maxWidth : '600px', display: 'block', margin: '0 auto' }} 
+          />
+        )}
+
         <form onSubmit={handleSubmit} className="w-full max-w-md" style={{ margin: '0 auto' }}>
+        <div className="mt-5">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{
+                border: 'none',
+                height: '40px',
+                backgroundColor: '#D9D9D9',
+                color: '#4F4F4F',
+              }}
+            />
+          </div>
           <div className="mt-5" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div className="mt-5" style={{ width: '48%' }}> {}
+            <div className="mt-5" style={{ width: '48%' }}>
               <select
                 value={selectedAnimal}
                 onChange={(e) => setSelectedAnimal(e.target.value)}
@@ -109,7 +143,7 @@ const Form: React.FC = () => {
                 <option value="coelho">Coelho</option>
               </select>
             </div>
-            <div className="mt-5" style={{ width: '48%' }}> {}
+            <div className="mt-5" style={{ width: '48%' }}>
               <select
                 value={selectedRaca}
                 onChange={(e) => setSelectedRaca(e.target.value)}
@@ -216,13 +250,13 @@ const Form: React.FC = () => {
               type="text"
               placeholder="Contato"
               value={contato}
-              onChange={handlePhoneChange} 
+              onChange={handlePhoneChange}
               className="focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{
                 border: 'none',
                 padding: '4px 16px',
                 borderRadius: '0',
-                width: '48%', 
+                width: '48%',
                 height: '40px',
                 backgroundColor: '#D9D9D9',
                 color: '#4F4F4F',
@@ -231,74 +265,29 @@ const Form: React.FC = () => {
               }}
             />
           </div>
-          <button
-            type="submit"
-            style={{
-              backgroundColor: '#95bf47 ',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '10px 20px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              width: '100%',
-              marginTop: '20px',
 
-            }}
-          >
-            Salvar
-          </button>
+          <div className="mt-5">
+            <button
+              type="submit"
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              style={{ width: '100%', height: '40px' }}
+            >
+              Enviar
+            </button>
+          </div>
         </form>
       </div>
-      {showModal && (
-        <div style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '20px',
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-          borderRadius: '8px',
-          zIndex: 1000,
-        }}>
-          <h3 style={{ color: '#333', marginBottom: '15px', fontSize: '18px', textAlign: 'center' }}>
-            Suas informações foram salvas com sucesso!
-          </h3>
-          <button
-            onClick={() => setShowModal(false)}
-            style={{
-              backgroundColor: '#95bf47',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '10px 20px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              width: '100%',
-            }}
-          >
-            Fechar
-          </button>
-        </div>
-      )}
 
-      {}
       {showModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 999,
-        }}></div>
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+            <p>Postagem salva com sucesso!</p>
+          </div>
+        </div>
       )}
     </div>
   );
 };
-
-
 
 export default Form;

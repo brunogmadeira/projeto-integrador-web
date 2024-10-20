@@ -35,7 +35,6 @@ const CardList: React.FC = () => {
       try {
         const response = await axios.get<postcad[]>(`http://localhost:8080/api/postcad/list/filtro/` + titulo);
         setItems(response.data);
-        console.log(response.data);
       } catch (err) {
         setError('Erro ao buscar os dados.');
       } finally {
@@ -62,18 +61,32 @@ const CardList: React.FC = () => {
           justifyContent: items.length === 1 ? 'flex-start' : 'center'
         }}>
           {items.map(postcad => (
-            <div key={postcad.idpost} style={styles.card}>
-              <img
-                src="/assets/images/post-ong/dog.png"
-                alt="Logo"
-                style={styles.image}
-              />
-              <div style={styles.cardContent}>
-                <h3 style={styles.title}>{postcad.titulo}</h3>
-                <p style={styles.description}>{postcad.descricao} <br />Nome: {postcad.nome_causa}</p>
-              </div>
-            </div>
-          ))}
+  <div key={postcad.idpost} style={styles.card}>
+    {postcad.imagem ? (
+      <img
+        src={`data:image/jpeg;base64,${postcad.imagem}`}
+        alt="Imagem do post"
+        style={styles.image}
+      />
+    ) : (
+      <img
+        src="/assets/images/post-ong/dog.png"
+        alt="Imagem padrão"
+        style={styles.image}
+      />
+    )}
+    <div style={styles.cardContent}>
+      <h3 style={styles.title}>{postcad.titulo}</h3>
+      <p style={styles.description}>
+        Descrição: {postcad.descricao} 
+      </p>
+      <p style={styles.description}>
+        Nome: {postcad.nome_causa}
+      </p>
+    </div>
+  </div>
+))}
+
         </div>
       )}
     </div>
