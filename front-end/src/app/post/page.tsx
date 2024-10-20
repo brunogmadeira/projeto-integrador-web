@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { HeaderNavigation } from '@/components/MenuGlobal/header-navigation';
-import Form from '../../components/PostPage/Form';
+import { HeaderNavigation } from '@/components/MenuGlobal';
+import Form from '../../components/PostPage';
 
 const PostOngPage = () => {
   return (
