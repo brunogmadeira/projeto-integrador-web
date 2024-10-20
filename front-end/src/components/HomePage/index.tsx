@@ -1,9 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import axios from 'axios';
-import React, { useEffect, useState, CSSProperties } from 'react';
 import { postcad } from '@/entity/postcad';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import {Container, 
+        Card, 
+        CardListWrapper, 
+        CardImage, 
+        CardContent, 
+        CardTitle, 
+        CardDescription, 
+        NoItemsMessage,
+        TitleContainer, 
+        SearchInput, 
+        SearchForm, 
+        SearchButton} from './style'
 
 const CardList: React.FC = () => {
   const [items, setItems] = useState<postcad[]>([]);
@@ -49,189 +61,49 @@ const CardList: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div style={styles.container}>
+    <Container>
       <Title titulo={titulo} setTitulo={setTitulo} onSearch={handleSearch} />
       {items.length === 0 ? (
-        <div style={styles.noItemsMessage}>
+        <NoItemsMessage>
           Nenhum post encontrado.
-        </div>
+        </NoItemsMessage>
       ) : (
-        <div style={{
-          ...styles.cardList,
-          justifyContent: items.length === 1 ? 'flex-start' : 'center'
-        }}>
+        <CardListWrapper justifyContent={items.length === 1 ? 'flex-start' : 'center'}>
           {items.map(postcad => (
-  <div key={postcad.idpost} style={styles.card}>
-    {postcad.imagem ? (
-      <img
-        src={`data:image/jpeg;base64,${postcad.imagem}`}
-        alt="Imagem do post"
-        style={styles.image}
-      />
-    ) : (
-      <img
-        src="/assets/images/post-ong/dog.png"
-        alt="Imagem padrão"
-        style={styles.image}
-      />
-    )}
-    <div style={styles.cardContent}>
-      <h3 style={styles.title}>{postcad.titulo}</h3>
-      <p style={styles.description}>
-        Descrição: {postcad.descricao} 
-      </p>
-      <p style={styles.description}>
-        Nome: {postcad.nome_causa}
-      </p>
-    </div>
-  </div>
-))}
-
-        </div>
+            <Card key={postcad.idpost}>
+              {postcad.imagem ? (
+                <CardImage src={`data:image/jpeg;base64,${postcad.imagem}`} alt="Imagem do post" />
+              ) : (
+                <CardImage src="/assets/images/post-ong/dog.png" alt="Imagem padrão" />
+              )}
+              <CardContent>
+                <CardTitle>{postcad.titulo}</CardTitle>
+                <CardDescription>Descrição: {postcad.descricao}</CardDescription>
+                <CardDescription>Nome: {postcad.nome_causa}</CardDescription>
+              </CardContent>
+            </Card>
+          ))}
+        </CardListWrapper>
       )}
-    </div>
+    </Container>
   );
 };
 
-const styles: { [key: string]: CSSProperties } = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    minWidth: '100%'
-  },
-  cardList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '16px',
-    justifyContent: 'center',
-    marginTop: '20px',
-    maxWidth: '45%',
-    minWidth: '100%'
-  },
-  card: {
-    display: 'flex',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    width: '45%',
-    minWidth: '45%',
-    minHeight: '300px',
-    height: 'auto',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    border: '3px solid #95bf47',
-  },
-  image: {
-    margin: '5%',
-    width: '230px',
-    height: '230px',
-    objectFit: 'cover',
-    borderRadius: '8px',
-    border: '2px solid #95bf47',
-  },
-  cardContent: {
-    padding: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    flexGrow: 1,
-  },
-  title: {
-    textAlign: 'left',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#95bf47',
-  },
-  description: {
-    textAlign: 'left',
-    fontSize: '14px',
-    marginTop: '8px',
-    color: 'black',
-    minHeight: '80px',
-  },
-  titleContainer: {
-    width: '100%',
-    border: '3px solid #95bf47',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  noItemsMessage: {
-    marginTop: '20px',
-    fontSize: '18px',
-    color: '#95bf47',
-    textAlign: 'center',
-  },
-};
-
-const mediaQueries = {
-  '@media (min-width: 768px)': {
-    card: {
-      width: '45%',
-    },
-  },
-  '@media (min-width: 1024px)': {
-    card: {
-      width: '30%',
-    },
-  },
-};
-
-Object.assign(styles, mediaQueries);
-
 const Title = ({ titulo, setTitulo, onSearch }: { titulo: string; setTitulo: React.Dispatch<React.SetStateAction<string>>; onSearch: () => void }) => {
   return (
-    <div style={{
-      ...styles.titleContainer,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      padding: '0',
-      marginBottom: '20px',
-    }}>
-      <form className="w-full max-w-md" onSubmit={(e) => { e.preventDefault(); onSearch(); }}>
-        <div className="mb-5 mt-5" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-          <input
-            type="text"
-            placeholder="Digite sua busca..."
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            className="focus:outline-none focus:ring-2 focus:ring-blue-500"
-            style={{
-              border: 'none',
-              padding: '4px 16px',
-              borderRadius: '0',
-              width: '100%',
-              height: '30px',
-              backgroundColor: '#D9D9D9',
-              color: '#4F4F4F',
-              fontSize: '16px',
-              textAlign: 'center',
-            }}
-          />
-          <button
-            type="button"
-            onClick={onSearch}
-            style={{
-              marginLeft: '8px',
-              padding: '6px 12px',
-              backgroundColor: '#95bf47',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-          >
-            Buscar
-          </button>
-        </div>
-      </form>
-    </div>
+    <TitleContainer>
+      <SearchForm onSubmit={(e) => { e.preventDefault(); onSearch(); }}>
+        <SearchInput
+          type="text"
+          placeholder="Digite sua busca..."
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+        />
+        <SearchButton type="button" onClick={onSearch}>
+          Buscar
+        </SearchButton>
+      </SearchForm>
+    </TitleContainer>
   );
 };
 
