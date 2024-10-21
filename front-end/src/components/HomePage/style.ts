@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { HiX } from "react-icons/hi";
 
 export const Container = styled.div`
   display: flex;
@@ -109,3 +110,54 @@ export const SearchButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalContainer = styled.div`
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #95bf47;
+  padding: 20px;
+  width: 600px; /* Largura fixa mediana */
+  max-height: 80vh; /* Altura máxima para 80% da viewport */
+  overflow-y: auto; /* Ativa rolagem vertical se o conteúdo for maior que o modal */
+  color: black;
+`;
+
+
+export const ModalImage = styled.img`
+  max-width: 100%; /* Imagem ocupa no máximo 100% da largura do modal */
+  height: auto;    /* Mantém a proporção da imagem */
+  margin-bottom: 15px;
+`;
+
+export const CloseButton = styled(HiX)`
+  cursor: pointer;
+  float: right;
+  color: #95bf47;
+  font-size: 23px;
+  margin-bottom: 15px;
+`;
+
+export const ModalCardTittle = styled.h3`
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: #95bf47;
+`;
+
+export const ModalText = styled.p`
+  white-space: pre-wrap; /* Mantém quebras de linha e espaços múltiplos */
+  word-wrap: break-word; /* Permite quebra de linha automática se a palavra for muito longa */
+`;
+
