@@ -13,9 +13,9 @@ export function HeaderNavigation() {
   const HEADER_NAVIGATION = [
     { title: 'Sobre', href: '/sobre' },
     { title: 'Home', href: '/home' },
-    { title: 'Solicitações', href: '/notfound' },
+    { title: 'Solicitações', href: '/solicitacoes' },
     { title: 'Post', href: '/post' },
-    { title: 'Perfil', href: '/notfound' },
+    { title: 'Perfil', href: '/perfil' },
   ];
 
   return (
