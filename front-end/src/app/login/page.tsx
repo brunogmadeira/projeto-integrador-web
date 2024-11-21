@@ -3,8 +3,8 @@
 import React from 'react';
 import Input from '@/components/LoginPage';
 
-const LoginVisitante = () => {
+const Login = () => {
   return <Input />
 };
 
-export default LoginVisitante;
+export default Login;

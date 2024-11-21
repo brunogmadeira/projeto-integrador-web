@@ -5,7 +5,7 @@ import React from 'react';
 import CardList from '../../components/HomePage';
 import { HeaderNavigation } from '@/components/MenuGlobal';
 
-const Page: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <div className="Page">
     <HeaderNavigation />
@@ -14,4 +14,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+export default Home;

@@ -4,7 +4,7 @@ import React from 'react';
 import { HeaderNavigation } from '@/components/MenuGlobal';
 import Form from '../../components/PostPage';
 
-const PostOngPage = () => {
+const Post = () => {
   return (
     <div>
       <HeaderNavigation />
@@ -13,4 +13,4 @@ const PostOngPage = () => {
   );
 };
 
-export default PostOngPage;
+export default Post;
