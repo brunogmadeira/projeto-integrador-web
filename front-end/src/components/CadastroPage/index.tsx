@@ -46,7 +46,8 @@ const Input = () => {
     if (response.ok) {
       window.location.href = '/login';
     } else {
-      alert('Erro ao cadastrar o usuário!');
+      const msgErro = await response.text();
+      alert(msgErro);    
     }
   };
 
