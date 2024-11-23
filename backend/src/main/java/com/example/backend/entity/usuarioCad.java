@@ -1,7 +1,6 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -32,9 +31,11 @@ public class usuarioCad implements Serializable {
     @Column(length = 80)
     private String token;
 
+    // Construtor padrão (necessário para o JPA)
     public usuarioCad() {
     }
 
+    // Construtor com todos os parâmetros
     public usuarioCad(Integer idusuario, String nome, Long telefone_celular, String email, String senha, Integer tipo_usuario, String token) {
         this.idusuario = idusuario;
         this.nome = nome;
@@ -45,6 +46,7 @@ public class usuarioCad implements Serializable {
         this.token = token;
     }
 
+    // Getters e Setters
     public Integer getIdusuario() {
         return idusuario;
     }
