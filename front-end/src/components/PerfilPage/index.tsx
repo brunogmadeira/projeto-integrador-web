@@ -152,6 +152,8 @@ const Perfil = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [titulo, setTitulo] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<postcad | null>(null);
 
   const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
   
@@ -217,6 +219,12 @@ const Perfil = () => {
     }
   };
 
+  const openModal = (post: postcad) => {
+    setSelectedPost(post);
+
+    const closeModal = () => setSelectedPost(null);
+
+
   if (loading) return <div>Carregando...</div>;
   if (error) return <div>{error}</div>;
 
@@ -248,7 +256,7 @@ const Perfil = () => {
             }}
           >
             {postCad.map((post) => (
-              <div key={post.idpost} style={styles.card}>
+              <div key={post.idpost} style={styles.card} onClick={() => openModal(post)}>
                 <div style={styles.imageContainer}>
                   {post.imagem ? (
                     <img
@@ -296,9 +304,13 @@ const Perfil = () => {
             ))}
           </div>
         )}
+                {selectedPost && (
+          <ModalCard isOpen={!!selectedPost} onClose={closeModal} post={selectedPost} />
+        )}
       </div>
     </div>
   );
 };
+}
 
 export default Perfil;
