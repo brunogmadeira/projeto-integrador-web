@@ -34,6 +34,12 @@ public class postsController {
         return ResponseEntity.ok(postcads);
     }
 
+    @GetMapping("/list/iduser/{iduser}")
+    public ResponseEntity<List<postCad>> listAllPostcadsIduser(@PathVariable Integer iduser){
+        List<postCad> postcads = postcadRp.findAllByIdUser(iduser);
+        return ResponseEntity.ok(postcads);
+    }
+
     @DeleteMapping("/getpost/{id}")
     public ResponseEntity<Optional<postCad>> getPost(@PathVariable int id){
         Optional<postCad> post = postcadRp.findById(id);

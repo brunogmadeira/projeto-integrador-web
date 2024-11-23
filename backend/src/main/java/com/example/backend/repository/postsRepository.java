@@ -19,4 +19,8 @@ public interface postsRepository extends JpaRepository<postCad, Integer> {
             "p.filtro_causa LIKE %:titulo%")
     List<postCad> findAllByFilter(@Param("titulo") String titulo);
 
+
+    @Query("SELECT p FROM postCad p WHERE p.usuario.id = :iduser")
+    List<postCad> findAllByIdUser(@Param("iduser") Integer iduser);
+
 }
