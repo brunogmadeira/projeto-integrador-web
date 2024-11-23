@@ -14,7 +14,10 @@ const Form: React.FC = () => {
   const [chavePix, setChavePix] = useState('');
   const [contato, setContato] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [imageBase64, setImageBase64] = useState<string>(''); // Inicializa como string vazia
+  const [imageBase64, setImageBase64] = useState<string>('');
+  const token = typeof window !== 'undefined' ? localStorage.getItem("authToken") : null;
+
+
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/\D/g, '');
@@ -30,7 +33,7 @@ const Form: React.FC = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        setImageBase64(base64String.split(',')[1]); // remove o prefixo 'data:image/jpeg;base64,' ou similar
+        setImageBase64(base64String.split(',')[1]); 
       };
       reader.readAsDataURL(file);
     }
@@ -53,13 +56,14 @@ const Form: React.FC = () => {
       chavepix: chavePix || 'chave-pix-padrao',
       contato: contato || 'contato@exemplo.com',
       status: 1,
-      imagem: imageBase64, // Adiciona a imagem convertida em base64 aqui
+      imagem: imageBase64, 
     };
 
     try {
       const response = await axios.put('http://localhost:8080/api/postcad/save', formData, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

@@ -10,6 +10,9 @@ const CardList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [titulo, setTitulo] = useState<string>('');
+  const token = typeof window !== 'undefined' ? localStorage.getItem("authToken") : null;
+
+
 
   useEffect(() => {
     initialList();
@@ -18,7 +21,11 @@ const CardList: React.FC = () => {
   function initialList() {
     const fetchItems = async () => {
       try {
-        const response = await axios.get<postcad[]>('http://localhost:8080/api/postcad/list');
+        const response = await axios.get<postcad[]>('http://localhost:8080/api/postcad/list', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setItems(response.data);
       } catch (err) {
         setError('Erro ao carregar os dados.');
@@ -28,12 +35,17 @@ const CardList: React.FC = () => {
     };
     fetchItems();
   }
+  
 
   const handleSearch = async () => {
     if (titulo.length > 0) {
       setLoading(true);
       try {
-        const response = await axios.get<postcad[]>(`http://localhost:8080/api/postcad/list/filtro/` + titulo);
+        const response = await axios.get<postcad[]>(`http://localhost:8080/api/postcad/list/filtro/` + titulo,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setItems(response.data);
       } catch (err) {
         setError('Erro ao buscar os dados.');
