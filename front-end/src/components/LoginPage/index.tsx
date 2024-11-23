@@ -30,6 +30,8 @@ const Input = () => {
         const data = await response.json();
         console.log('Login bem-sucedido:', data);
         localStorage.setItem('authToken', data.token);
+        localStorage.setItem('usuarioName', data.nome);
+        localStorage.setItem('usuarioEmail', data.user);
         router.push('/sobre');
       } else {
         console.error('Erro no login:', response.status);

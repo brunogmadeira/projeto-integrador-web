@@ -1,5 +1,6 @@
 "use client";
 
+import { usuariocad } from "@/entity/usuariocad";
 import React, { CSSProperties } from "react";
 import { HiX } from "react-icons/hi";
 
@@ -9,6 +10,9 @@ interface Postcad {
   descricao: string;
   nome_causa: string;
   imagem?: string;
+  chavepix?: string; 
+  contato?: string; 
+  usuario: usuariocad;
 }
 
 interface ModalCardProps {
@@ -158,6 +162,11 @@ const styles: { [key: string]: CSSProperties } = {
     whiteSpace: "pre-wrap",
     wordWrap: "break-word",
   },
+  modalTextEmail:{
+    color: '#000',
+    fontSize: '12px',
+    alignItems: 'flex-start'
+  }
 };
 
 const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
@@ -168,6 +177,7 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
       <div style={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
         <HiX style={styles.closeButton} onClick={onClose} />
         <h3 style={styles.modalCardTitle}>{post.titulo}</h3>
+        <p style={styles.modalTextEmail}>{post.usuario.email}</p>
         {post.imagem && (
           <img
             style={styles.modalImage}
@@ -177,6 +187,8 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
         )}
         <p style={styles.modalText}>{post.nome_causa}</p>
         <p style={styles.modalText}>{post.descricao}</p>
+        <p style={styles.modalText}>Chave pix: {post.chavepix ? post.chavepix : 'Sem chave informada'}</p>
+        <p style={styles.modalText}>Contato: {post.contato}</p>
       </div>
     </div>
   );

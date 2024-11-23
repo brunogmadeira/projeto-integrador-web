@@ -1,9 +1,12 @@
 "use client";
 
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useState, useEffect } from "react";
 import { FaPaw } from "react-icons/fa";
+import axios from "axios";
+import { postcad } from "@/entity/postcad";
+import { usuariocad } from "@/entity/usuariocad";
 
-const styles: { [key: string]: CSSProperties } = {
+const styless: { [key: string]: CSSProperties } = {
   container: {
     display: "flex",
     flexDirection: "column",
@@ -24,20 +27,22 @@ const styles: { [key: string]: CSSProperties } = {
     fontSize: "80px",
     color: "black",
   },
-  input: {
+  name: {
     width: "200px",
-    padding: "10px",
-    fontSize: "16px",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
+    fontSize: "26px",
     textAlign: "center",
-    backgroundColor: "#f7f7f7",
-    color: "#999",
+    color: "#000",
+  },
+  email: {
+    width: "200px",
+    fontSize: "12px",
+    textAlign: "center",
+    color: "#000",
   },
   description: {
-    fontSize: "14px",
+    fontSize: "16px",
     textAlign: "center",
-    color: "#444",
+    color: "#000",
     lineHeight: "1.5",
     maxWidth: "300px",
     wordBreak: "break-word",
@@ -66,21 +71,156 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
+const styles: { [key: string]: CSSProperties } = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    minWidth: '100%',
+  },
+  cardList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+    justifyContent: 'center',
+    marginTop: '20px',
+    maxWidth: '45%',
+    minWidth: '100%',
+  },
+  card: {
+    display: 'flex',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    width: '45%',
+    minWidth: '45%',
+    minHeight: '300px',
+    height: 'auto',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+    border: '3px solid #95bf47',
+  },
+  image: {
+    margin: '5%',
+    width: '230px',
+    height: '230px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+    border: '2px solid #95bf47',
+  },
+  cardContent: {
+    padding: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    flexGrow: 1,
+  },
+  title: {
+    textAlign: 'left',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#95bf47',
+  },
+  description: {
+    textAlign: 'left',
+    fontSize: '14px',
+    marginTop: '8px',
+    color: 'black',
+    minHeight: '80px',
+  },
+  titleContainer: {
+    width: '100%',
+    border: '3px solid #95bf47',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noItemsMessage: {
+    marginTop: '20px',
+    fontSize: '18px',
+    color: '#95bf47',
+    textAlign: 'center',
+  },
+};
+
 const Perfil = () => {
+  const [usuario, setUsuario] = useState<usuariocad>({
+    idusuario: 0,
+    nome: "",
+    email: "",
+  });
+
+  const [postCad, setPostCad] = useState<postcad[]>([]);
+
+  const usuarioName = typeof window !== 'undefined' ? localStorage.getItem('usuarioName') : null;
+  const usuarioEmail = typeof window !== 'undefined' ? localStorage.getItem('usuarioEmail'): null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem("authToken") : null;
+
+  const fetchPostData = async () => {
+    try {
+      const response = await axios.get<postcad[]>('http://localhost:8080/api/postcad/list/iduser/1', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setPostCad(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostData();
+  }, []);
+
   return (
-    <div style={styles.container}>
-      <div style={styles.profile}>
-        <FaPaw style={styles.icon} />
-        <input style={styles.input} placeholder="Nome" disabled />
-        <input style={{ ...styles.input, marginTop: "-5px" }} placeholder="Email" disabled />
-        <p style={styles.description}>
-          pipipipipopopopipipipopopipipipopopipipipopopipi<br />
-          pipipipipopopopipipipopopipipipopopipipipopopipi
-        </p>
+    <div style={styless.container}>
+      <div style={styless.profile}>
+        <FaPaw style={styless.icon} />
+        <p style={styless.name}>{usuarioName}</p>
+        <p style={{ ...styless.email, marginTop: "-5px" }}>{usuarioEmail}</p>
       </div>
-      <div style={styles.details}>
-        <div style={styles.box}>fotos</div>
-        <div style={styles.box}>descrição</div>
+      <div style={styles.container}>
+        {postCad.length === 0 ? (
+          <div style={styles.noItemsMessage}>
+            Nenhum post encontrado.
+          </div>
+        ) : (
+          <div style={{
+            ...styles.cardList,
+            justifyContent: postCad.length === 1 ? 'flex-start' : 'center',
+          }}>
+            {postCad.map(postcad => (
+              <div key={postcad.idpost} style={styles.card}>
+                {postcad.imagem ? (
+                  <img
+                    src={`data:image/jpeg;base64,${postcad.imagem}`}
+                    alt="Imagem do post"
+                    style={styles.image}
+                  />
+                ) : (
+                  <img
+                    src="/assets/images/post-ong/dog.png"
+                    alt="Imagem padrão"
+                    style={styles.image}
+                  />
+                )}
+                <div style={styles.cardContent}>
+                  <h3 style={styles.title}>{postcad.titulo}</h3>
+                  <p style={styles.description}>
+                    Descrição: {postcad.descricao}
+                  </p>
+                  <p style={styles.description}>
+                    Nome: {postcad.nome_causa}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

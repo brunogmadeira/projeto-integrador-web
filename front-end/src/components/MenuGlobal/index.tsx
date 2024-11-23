@@ -16,7 +16,6 @@ export function HeaderNavigation() {
     { title: 'Post', href: '/post-ong' },
     { title: 'Perfil', href: '/perfil' },
   ];
- console.log('VAISE FUDE')
   return (
     <HeaderContainer>
         <Logo 
