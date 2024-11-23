@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.entity.usuarioCad;
 import com.example.backend.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +23,12 @@ public class userController {
     private userRepository userRepository;
 
     @PostMapping("/novouser")
-    public void newUser(@RequestBody usuarioCad user) {
-        user.setSenha(passwordEncoder.encode(user.getSenha()));
-        userRepository.save(user);
+    public ResponseEntity<String> newUser(@RequestBody usuarioCad user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            return ResponseEntity.badRequest().body("E-mail já cadastrado.");
+        }
+            user.setSenha(passwordEncoder.encode(user.getSenha()));
+            userRepository.save(user);
+        return ResponseEntity.ok("Usuário criado com sucesso.");
     }
 }
