@@ -2,7 +2,7 @@
 
 
 import React from 'react';
-import CardList from '@/components/HomePage/cardlist';
+import CardList from '@/components/HomePage';
 import { HeaderNavigation } from '@/components/MenuGlobal';
 
 const Page: React.FC = () => {
