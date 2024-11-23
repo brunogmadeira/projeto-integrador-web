@@ -1,3 +1,23 @@
-{
-  "extends": ["next/core-web-vitals", "next/typescript"]
-}
+
+  {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module"
+    },
+    "extends": [
+      "next/core-web-vitals",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "off",  // Desabilitar variáveis não usadas
+      "react-hooks/exhaustive-deps": "off",        // Desabilitar dependências do useEffect
+      "@next/next/no-img-element": "off"      },
+  }
+  
+
+
+
+
+

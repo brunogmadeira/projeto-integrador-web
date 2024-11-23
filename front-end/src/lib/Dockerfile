@@ -10,6 +10,12 @@ COPY package*.json ./
 # Instalar as dependências
 RUN npm install
 
+# Instalar TypeScript globalmente (se necessário)
+RUN npm install -g typescript
+
+# Instalar o ESLint (caso esteja usando)
+RUN npm install -g eslint
+
 # Copiar o restante dos arquivos do projeto
 COPY . .
 
