@@ -4,7 +4,69 @@ import React, { useState, useEffect, CSSProperties } from "react";
 import axios from "axios";
 import { FaPaw } from "react-icons/fa";
 import { postcad } from "@/entity/postcad";
-import ModalCard from "../HomePage/modalCard";
+import ModalCard from "../HomePage/modalCard"; // Certifique-se de que o caminho está correto
+
+const styless: { [key: string]: CSSProperties } = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#fefaf6",
+    minHeight: "100vh",
+    padding: "20px",
+  },
+  profileCard: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "80%",
+    maxWidth: "600px",
+    backgroundColor: "#fff",
+    border: "2px solid #95bf47",
+    borderRadius: "12px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    padding: "20px",
+    marginBottom: "40px",
+  },
+  profileIconContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#f2f2f2",
+    borderRadius: "50%",
+    width: "100px",
+    height: "100px",
+    border: "2px solid #95bf47",
+  },
+  profileIcon: {
+    fontSize: "50px",
+    color: "#95bf47",
+  },
+  profileInfo: {
+    flex: 1,
+    marginLeft: "20px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
+  profileName: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#333",
+    margin: 0,
+  },
+  profileEmail: {
+    fontSize: "14px",
+    color: "#666",
+    margin: 0,
+  },
+  profileDescription: {
+    fontSize: "16px",
+    color: "#333",
+    lineHeight: "1.5",
+  },
+};
 
 const styles: { [key: string]: CSSProperties } = {
   container: {
@@ -63,6 +125,15 @@ const styles: { [key: string]: CSSProperties } = {
     color: "black",
     minHeight: "20px",
   },
+  noItemsMessage: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#95bf47",
+    textAlign: "center",
+  },
+  imageContainer: {
+    marginRight: "20px",
+  },
   removeButton: {
     marginTop: "12px",
     padding: "8px 16px",
@@ -81,22 +152,23 @@ const Perfil = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [titulo, setTitulo] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<postcad | null>(null);
+  
 
   const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   const fetchPostData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get<postcad[]>(
         `https://projeto-integrador-web-production.up.railway.app/api/postcad/list/iduser/${localStorage.getItem("usuarioId")}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       setPostCad(response.data);
-    } catch (err) {
+    } catch {
       setError("Erro ao carregar os dados.");
     } finally {
       setLoading(false);
@@ -106,55 +178,81 @@ const Perfil = () => {
   const removePost = async (id: number) => {
     try {
       setLoading(true);
-      setPostCad((prevPosts) => prevPosts.filter((post) => post.idpost !== id));
-      await axios.delete(
+      const response = await axios.delete(
         `https://projeto-integrador-web-production.up.railway.app/api/postcad/deletepost/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      fetchPostData();
-    } catch (err) {
+      if (response.status === 200) {
+        setPostCad((prevPosts) => prevPosts.filter((post) => post.idpost !== id));
+      }
+    } catch {
       setError("Erro ao remover o post.");
     } finally {
       setLoading(false);
     }
   };
 
+  const openModal = (post: postcad) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPost(null);
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     fetchPostData();
   }, []);
 
-  if (loading) return <div>Carregando...</div>;
-  if (error) return <div>{error}</div>;
-
   return (
-    <div style={styles.container}>
-      {postCad.length === 0 ? (
-        <div>Nenhum post encontrado.</div>
-      ) : (
-        <div style={styles.cardList}>
-          {postCad.map((post) => (
-            <div key={post.idpost} style={styles.card}>
-              <img
-                src={`data:image/jpeg;base64,${post.imagem || ""}`}
-                alt="Post"
-                style={styles.image}
-              />
-              <div style={styles.cardContent}>
-                <h3 style={styles.title}>{post.titulo}</h3>
-                <p style={styles.description}>{post.descricao}</p>
-                <button style={styles.removeButton} onClick={() => removePost(post.idpost)}>
-                  Remover
-                </button>
-              </div>
-            </div>
-          ))}
+    <div style={styless.container}>
+      <div style={styless.profileCard}>
+        <div style={styless.profileIconContainer}>
+          <FaPaw style={styless.profileIcon} />
         </div>
-      )}
-      {selectedPost && (
+        <div style={styless.profileInfo}>
+          <h2 style={styless.profileName}>{localStorage.getItem("usuarioName")}</h2>
+          <p style={styless.profileEmail}>{localStorage.getItem("usuarioEmail")}</p>
+          <p style={styless.profileDescription}>
+            Bem-vindo(a) à nossa plataforma! Aqui você pode criar e gerenciar causas em prol dos animais.
+          </p>
+        </div>
+      </div>
+      <div style={styles.container}>
+        {postCad.length === 0 ? (
+          <div style={styles.noItemsMessage}>Nenhum post encontrado.</div>
+        ) : (
+          <div style={styles.cardList}>
+            {postCad.map((post) => (
+              <div key={post.idpost} style={styles.card}>
+                <div style={styles.imageContainer}>
+                  <img
+                    src={post.imagem ? `data:image/jpeg;base64,${post.imagem}` : "/assets/images/post-ong/dog.png"}
+                    alt="Imagem do post"
+                    style={styles.image}
+                  />
+                </div>
+                <div style={styles.cardContent}>
+                  <h3 style={styles.title}>{post.titulo}</h3>
+                  <p style={styles.description}>{post.descricao}</p>
+                  <button
+                    style={styles.removeButton}
+                    onClick={() => removePost(post.idpost)}
+                  >
+                    Remover
+                  </button>
+                  <button onClick={() => openModal(post)}>Ver mais</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {isModalOpen && selectedPost && (
         <ModalCard isOpen={!!selectedPost} onClose={() => setSelectedPost(null)} post={selectedPost} />
       )}
     </div>
