@@ -13,11 +13,10 @@ export function HeaderNavigation() {
   const HEADER_NAVIGATION = [
     { title: 'Sobre', href: '/sobre' },
     { title: 'Home', href: '/home' },
-    { title: 'Solicitações', href: '/notfound' },
     { title: 'Post', href: '/post-ong' },
     { title: 'Perfil', href: '/notfound' },
   ];
-
+ console.log('VAISE FUDE')
   return (
     <HeaderContainer>
         <Logo 

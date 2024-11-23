@@ -1,3 +1,5 @@
+'use client'
+
 // HeaderStyles.ts
 import styled from 'styled-components';
 import { NavigationMenuList } from '@/components/ui/navigation-menu';

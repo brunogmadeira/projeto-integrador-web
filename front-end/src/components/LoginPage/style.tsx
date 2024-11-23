@@ -1,3 +1,5 @@
+'use client'
+
 import styled from 'styled-components';
 
 export const Main = styled.main`
@@ -6,14 +8,15 @@ export const Main = styled.main`
   align-items: center;
   justify-content: center;
   width: 30%;
-  height: 100vh;
   margin: 0 auto;
+  height: 100vh;
 `;
 
 export const StyledInput = styled.input`
   padding: 12px 16px;
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
   background-color: #D9D9D9;
   color: #4F4F4F;
   font-size: 16px;
@@ -24,6 +27,15 @@ export const StyledInput = styled.input`
 
   &:focus {
     border: 1px solid rgb(149, 191, 71);
+  }
+`;
+
+export const LinkStyled = styled.a`
+  font-size: 14px;
+  color: black;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 

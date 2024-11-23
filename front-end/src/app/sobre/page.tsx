@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { HeaderNavigation } from '@/components/MenuGlobal/header-navigation';
-import InfoTela from '../../components/SobrePage/infos';
+import { HeaderNavigation } from '@/components/MenuGlobal';
+import InfoTela from '../../components/SobrePage';
 const Sobre = () => {
     return (
       <div>
