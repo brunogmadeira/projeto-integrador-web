@@ -45,7 +45,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.cors(cors -> cors.configurationSource(request -> {
             var corsConfiguration = new CorsConfiguration();
-            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000")); // Permitir frontend
+            corsConfiguration.setAllowedOrigins(List.of("https://projeto-integrador-web-production-3fb3.up.railway.app")); // Permitir frontend
             corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
             corsConfiguration.setAllowedHeaders(List.of("*")); // Cabeçalhos permitidos
             corsConfiguration.setAllowCredentials(true); // Permitir cookies/sessões, se necessário
