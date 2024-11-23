@@ -183,7 +183,7 @@ const Perfil = () => {
 
   const fetchPostData = async () => {
     try {
-      const response = await axios.get<postcad[]>("https://projeto-integrador-web-production.up.railway.app/api/postcad/list", {
+      const response = await axios.get<postcad[]>("https://projeto-integrador-web-production.up.railway.app/api/postcad/list/iduser/" + localStorage.getItem("id"), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
