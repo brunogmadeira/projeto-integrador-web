@@ -154,26 +154,29 @@ const Perfil = () => {
   const [titulo, setTitulo] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<postcad | null>(null);
-  
 
   const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   const fetchPostData = async () => {
+    if (typeof window === "undefined") return;
     setLoading(true);
     try {
+      const userId = localStorage.getItem("usuarioId");
+      if (!userId) throw new Error("Usuário não autenticado.");
       const response = await axios.get<postcad[]>(
-        `https://projeto-integrador-web-production.up.railway.app/api/postcad/list/iduser/${localStorage.getItem("usuarioId")}`,
+        `https://projeto-integrador-web-production.up.railway.app/api/postcad/list/iduser/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
       setPostCad(response.data);
-    } catch {
+    } catch (error) {
       setError("Erro ao carregar os dados.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   const removePost = async (id: number) => {
     try {
@@ -205,8 +208,11 @@ const Perfil = () => {
   };
 
   useEffect(() => {
-    fetchPostData();
+    if (typeof window !== "undefined") {
+      fetchPostData();
+    }
   }, []);
+  
 
   return (
     <div style={styless.container}>
