@@ -14,7 +14,7 @@ export function HeaderNavigation() {
     { title: 'Sobre', href: '/sobre' },
     { title: 'Home', href: '/home' },
     { title: 'Post', href: '/post-ong' },
-    { title: 'Perfil', href: '/notfound' },
+    { title: 'Perfil', href: '/perfil' },
   ];
  console.log('VAISE FUDE')
   return (
