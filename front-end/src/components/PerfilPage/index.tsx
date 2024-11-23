@@ -1,10 +1,9 @@
 "use client";
 
-import React, { CSSProperties, useState, useEffect } from "react";
-import { FaPaw } from "react-icons/fa";
+import React, { useState, useEffect, CSSProperties } from "react";
 import axios from "axios";
+import { FaPaw } from "react-icons/fa";
 import { postcad } from "@/entity/postcad";
-import { usuariocad } from "@/entity/usuariocad";
 import ModalCard from "../HomePage/modalCard";
 
 const styless: { [key: string]: CSSProperties } = {
@@ -17,135 +16,7 @@ const styless: { [key: string]: CSSProperties } = {
     minHeight: "100vh",
     padding: "20px",
   },
-  profile: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "10px",
-    marginBottom: "40px",
-  },
-  icon: {
-    fontSize: "80px",
-    color: "black",
-  },
-  name: {
-    width: "200px",
-    fontSize: "26px",
-    textAlign: "center",
-    color: "#000",
-  },
-  email: {
-    width: "200px",
-    fontSize: "12px",
-    textAlign: "center",
-    color: "#000",
-  },
-  description: {
-    fontSize: "16px",
-    textAlign: "center",
-    color: "#000",
-    lineHeight: "1.5",
-    maxWidth: "300px",
-    wordBreak: "break-word",
-  },
-  details: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "20px",
-    border: "2px solid #8ec63f", 
-    borderRadius: "10px",
-    padding: "20px",
-    width: "80%",
-    maxWidth: "600px",
-    backgroundColor: "#eee",
-  },
-  box: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: "18px",
-    fontWeight: "bold",
-    color: "#333",
-    backgroundColor: "#ddd",
-    padding: "30px",
-    borderRadius: "8px",
-  },
-};
-
-const styles: { [key: string]: CSSProperties } = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    minWidth: '100%',
-  },
-  cardList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '16px',
-    justifyContent: 'center',
-    marginTop: '20px',
-    maxWidth: '45%',
-    minWidth: '100%',
-  },
-  card: {
-    display: 'flex',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    width: '45%',
-    minWidth: '45%',
-    minHeight: '300px',
-    height: 'auto',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    border: '3px solid #95bf47',
-  },
-  image: {
-    margin: '5%',
-    width: '230px',
-    height: '230px',
-    objectFit: 'cover',
-    borderRadius: '8px',
-    border: '2px solid #95bf47',
-  },
-  cardContent: {
-    padding: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    flexGrow: 1,
-  },
-  title: {
-    textAlign: 'left',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#95bf47',
-  },
-  description: {
-    textAlign: 'left',
-    fontSize: '14px',
-    marginTop: '8px',
-    color: 'black',
-    minHeight: '80px',
-  },
-  titleContainer: {
-    width: '100%',
-    border: '3px solid #95bf47',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  noItemsMessage: {
-    marginTop: '20px',
-    fontSize: '18px',
-    color: '#95bf47',
-    textAlign: 'center',
-  },
-   profileCard: {
+  profileCard: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -197,16 +68,82 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
-const Perfil = () => {
-  const [usuario, setUsuario] = useState<usuariocad>({
-    idusuario: 0,
-    nome: "",
-    email: "",
-  });
+const styles: { [key: string]: CSSProperties } = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    minWidth: "100%",
+  },
+  cardList: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "16px",
+    justifyContent: "center",
+    marginTop: "20px",
+    maxWidth: "45%",
+    minWidth: "100%",
+  },
+  card: {
+    display: "flex",
+    borderRadius: "8px",
+    overflow: "hidden",
+    width: "45%",
+    minWidth: "45%",
+    minHeight: "300px",
+    height: "auto",
+    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+    border: "3px solid #95bf47",
+  },
+  image: {
+    margin: "5%",
+    width: "230px",
+    height: "230px",
+    objectFit: "cover",
+    borderRadius: "8px",
+    border: "2px solid #95bf47",
+  },
+  cardContent: {
+    padding: "16px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    flexGrow: 1,
+  },
+  title: {
+    textAlign: "left",
+    fontSize: "20px",
+    fontWeight: "bold",
+    color: "#95bf47",
+  },
+  description: {
+    textAlign: "left",
+    fontSize: "14px",
+    marginTop: "8px",
+    color: "black",
+    minHeight: "20px",
+  },
+  noItemsMessage: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#95bf47",
+    textAlign: "center",
+  },
+  imageContainer: {
+    marginRight: '20px', // Espaçamento entre a imagem e o texto
+  },
+};
 
+const Perfil = () => {
   const [postCad, setPostCad] = useState<postcad[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [titulo, setTitulo] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<postcad | null>(null); 
+  const [selectedPost, setSelectedPost] = useState<postcad | null>(null);
+  const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   const openModal = (post: postcad) => {
     setSelectedPost(post);
@@ -214,85 +151,134 @@ const Perfil = () => {
 
   const closeModal = () => setSelectedPost(null);
 
-  const usuarioName = typeof window !== 'undefined' ? localStorage.getItem('usuarioName') : null;
-  const usuarioEmail = typeof window !== 'undefined' ? localStorage.getItem('usuarioEmail'): null;
-  const token = typeof window !== 'undefined' ? localStorage.getItem("authToken") : null;
+  useEffect(() => {
+    fetchPostData();
+  }, []);
 
   const fetchPostData = async () => {
     try {
-      const response = await axios.get<postcad[]>('http://localhost:8080/api/postcad/list/iduser/1', {
+      const response = await axios.get<postcad[]>("http://localhost:8080/api/postcad/list", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setPostCad(response.data);
     } catch (err) {
-      console.log(err);
+      setError("Erro ao carregar os dados.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchPostData();
-  }, []);
+  const handleSearch = async () => {
+    if (titulo.length > 0) {
+      setLoading(true);
+      try {
+        const response = await axios.get<postcad[]>(`http://localhost:8080/api/postcad/list/filtro/` + titulo, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPostCad(response.data);
+      } catch (err) {
+        setError("Erro ao buscar os dados.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      fetchPostData();
+    }
+  };
+
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-<div style={styless.container}>
-  {/* Card do Usuário */}
-  <div style={styles.profileCard}>
-    <div style={styles.profileIconContainer}>
-      <FaPaw style={styles.profileIcon} />
-    </div>
-    <div style={styles.profileInfo}>
-      <h2 style={styles.profileName}>{usuarioName}</h2>
-      <p style={styles.profileEmail}>{usuarioEmail}</p>
-      <p style={styles.profileDescription}>
-        Bem-vindo(a) à nossa plataforma! Aqui você pode criar e gerenciar causas em prol dos animais.
-      </p>
-    </div>
-  </div>
+    <div style={styless.container}>
+      {/* Card do Usuário */}
+      <div style={styless.profileCard}>
+        <div style={styless.profileIconContainer}>
+          <FaPaw style={styless.profileIcon} />
+        </div>
+        <div style={styless.profileInfo}>
+          <h2 style={styless.profileName}>{localStorage.getItem("usuarioName")}</h2>
+          <p style={styless.profileEmail}>{localStorage.getItem("usuarioEmail")}</p>
+          <p style={styless.profileDescription}>
+            Bem-vindo(a) à nossa plataforma! Aqui você pode criar e gerenciar causas em prol dos animais.
+          </p>
+        </div>
+      </div>
 
-  {/* Lista de Posts */}
-  <div style={styles.container}>
-    {postCad.length === 0 ? (
-      <div style={styles.noItemsMessage}>
-        Nenhum post encontrado.
-      </div>
-    ) : (
-      <div
-        style={{
-          ...styles.cardList,
-          justifyContent: postCad.length === 1 ? "flex-start" : "center",
-        }}
-      >
-        {postCad.map((postcad) => (
-          <div key={postcad.idpost} style={styles.card} onClick={() => openModal(postcad)}>
-            {postcad.imagem ? (
-              <img
-                src={`data:image/jpeg;base64,${postcad.imagem}`}
-                alt="Imagem do post"
-                style={styles.image}
-              />
-            ) : (
-              <img
-                src="/assets/images/post-ong/dog.png"
-                alt="Imagem padrão"
-                style={styles.image}
-              />
-            )}
-            <div style={styles.cardContent}>
-              <h3 style={styles.title}>{postcad.titulo}</h3>
-              <p style={styles.description}>Descrição: {postcad.descricao}</p>
-              <p style={styles.description}>Nome: {postcad.nome_causa}</p>
-            </div>
+      {/* Lista de Posts */}
+      <div style={styles.container}>
+        {postCad.length === 0 ? (
+          <div style={styles.noItemsMessage}>Nenhum post encontrado.</div>
+        ) : (
+          <div
+            style={{
+              ...styles.cardList,
+              justifyContent: postCad.length === 1 ? "flex-start" : "center",
+            }}
+          >
+            {postCad.map((post) => (
+              <div key={post.idpost} style={styles.card} onClick={() => openModal(post)}>
+                <div style={styles.imageContainer}>
+                  {post.imagem ? (
+                    <img
+                      src={`data:image/jpeg;base64,${post.imagem}`}
+                      alt="Imagem do post"
+                      style={styles.image}
+                    />
+                  ) : (
+                    <img
+                      src="/assets/images/post-ong/dog.png"
+                      alt="Imagem padrão"
+                      style={styles.image}
+                    />
+                  )}
+                </div>
+                <div style={styles.cardContent}>
+                  <h3 style={styles.title}>{post.titulo}</h3>
+                  <p style={styles.description}>
+                    <strong>Nome da Causa:</strong> {post.nome_causa}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Descrição:</strong> {post.descricao}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Chave PIX:</strong> {post.chavepix || "Não informado"}
+                  </p>
+                  {post.filtro_animal && (
+                    <p style={styles.description}>
+                      <strong>Filtro Animal:</strong> {post.filtro_animal}
+                    </p>
+                  )}
+                  {post.filtro_raca && (
+                    <p style={styles.description}>
+                      <strong>Filtro Raça:</strong> {post.filtro_raca}
+                    </p>
+                  )}
+                  {post.filtro_porte && (
+                    <p style={styles.description}>
+                      <strong>Filtro Porte:</strong> {post.filtro_porte}
+                    </p>
+                  )}
+                  {post.filtro_causa && (
+                    <p style={styles.description}>
+                      <strong>Filtro Causa:</strong> {post.filtro_causa}
+                    </p>
+                  )}
+              </div>
+
+              </div>
+            ))}
           </div>
-        ))}
+        )}
+        {selectedPost && (
+          <ModalCard isOpen={!!selectedPost} onClose={closeModal} post={selectedPost} />
+        )}
       </div>
-    )}
-    {selectedPost && (
-      <ModalCard isOpen={!!selectedPost} onClose={closeModal} post={selectedPost} />
-    )}
-  </div>
-</div>
+    </div>
   );
 };
 
