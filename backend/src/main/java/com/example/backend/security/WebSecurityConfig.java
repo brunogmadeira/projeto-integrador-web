@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -40,7 +43,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.cors(Customizer.withDefaults());
+        http.cors(cors -> cors.configurationSource(request -> {
+            var corsConfiguration = new CorsConfiguration();
+            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000")); // Permitir frontend
+            corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
+            corsConfiguration.setAllowedHeaders(List.of("*")); // Cabeçalhos permitidos
+            corsConfiguration.setAllowCredentials(true); // Permitir cookies/sessões, se necessário
+            return corsConfiguration;
+        }));
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(Exception -> Exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
