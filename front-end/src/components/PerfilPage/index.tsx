@@ -156,6 +156,16 @@ const Perfil = () => {
   const [selectedPost, setSelectedPost] = useState<postcad | null>(null);
 
   const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+  let nome = "";
+  let email = "";
+
+
+  if (typeof window === "undefined"){
+    return null;
+  }else{
+    nome = localStorage.getItem("usuarioName") || ""; 
+    email = localStorage.getItem("usuarioEmail") || ""; }
+
 
   const fetchPostData = async () => {
     if (typeof window === "undefined") return;
@@ -221,7 +231,7 @@ const Perfil = () => {
           <FaPaw style={styless.profileIcon} />
         </div>
         <div style={styless.profileInfo}>
-          <h2 style={styless.profileName}>{localStorage.getItem("usuarioName")}</h2>
+          <h2 style={styless.profileName}>{nome}</h2>
           <p style={styless.profileEmail}>{localStorage.getItem("usuarioEmail")}</p>
           <p style={styless.profileDescription}>
             Bem-vindo(a) à nossa plataforma! Aqui você pode criar e gerenciar causas em prol dos animais.
@@ -264,5 +274,6 @@ const Perfil = () => {
     </div>
   );
 };
+
 
 export default Perfil;
