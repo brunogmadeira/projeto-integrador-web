@@ -5,6 +5,7 @@ import { FaPaw } from "react-icons/fa";
 import axios from "axios";
 import { postcad } from "@/entity/postcad";
 import { usuariocad } from "@/entity/usuariocad";
+import ModalCard from "../HomePage/modalCard";
 
 const styless: { [key: string]: CSSProperties } = {
   container: {
@@ -12,7 +13,7 @@ const styless: { [key: string]: CSSProperties } = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    backgroundColor: "#fefaf6", // Fundo claro
+    backgroundColor: "#fefaf6",
     minHeight: "100vh",
     padding: "20px",
   },
@@ -52,7 +53,7 @@ const styless: { [key: string]: CSSProperties } = {
     justifyContent: "center",
     alignItems: "center",
     gap: "20px",
-    border: "2px solid #8ec63f", // Verde claro
+    border: "2px solid #8ec63f", 
     borderRadius: "10px",
     padding: "20px",
     width: "80%",
@@ -154,6 +155,14 @@ const Perfil = () => {
   });
 
   const [postCad, setPostCad] = useState<postcad[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<postcad | null>(null); 
+
+  const openModal = (post: postcad) => {
+    setSelectedPost(post);
+  };
+
+  const closeModal = () => setSelectedPost(null);
 
   const usuarioName = typeof window !== 'undefined' ? localStorage.getItem('usuarioName') : null;
   const usuarioEmail = typeof window !== 'undefined' ? localStorage.getItem('usuarioEmail'): null;
@@ -194,7 +203,7 @@ const Perfil = () => {
             justifyContent: postCad.length === 1 ? 'flex-start' : 'center',
           }}>
             {postCad.map(postcad => (
-              <div key={postcad.idpost} style={styles.card}>
+              <div key={postcad.idpost} style={styles.card} onClick={() => openModal(postcad)}  >
                 {postcad.imagem ? (
                   <img
                     src={`data:image/jpeg;base64,${postcad.imagem}`}
@@ -221,6 +230,13 @@ const Perfil = () => {
             ))}
           </div>
         )}
+        {selectedPost && (
+        <ModalCard
+          isOpen={!!selectedPost}
+          onClose={closeModal}
+          post={selectedPost} // Passando o post específico
+        />
+      )}
       </div>
     </div>
   );

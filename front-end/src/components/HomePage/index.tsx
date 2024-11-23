@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import axios from 'axios';
 import React, { useEffect, useState, CSSProperties } from 'react';
 import { postcad } from '@/entity/postcad';
+import ModalCard from './modalCard';
 
 const CardList: React.FC = () => {
   const [items, setItems] = useState<postcad[]>([]);
@@ -11,12 +11,19 @@ const CardList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [titulo, setTitulo] = useState<string>('');
   const token = typeof window !== 'undefined' ? localStorage.getItem("authToken") : null;
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<postcad | null>(null); 
 
 
   useEffect(() => {
     initialList();
   }, []);
+
+  const openModal = (post: postcad) => {
+    setSelectedPost(post);
+  };
+
+  const closeModal = () => setSelectedPost(null);
 
   function initialList() {
     const fetchItems = async () => {
@@ -71,9 +78,9 @@ const CardList: React.FC = () => {
         <div style={{
           ...styles.cardList,
           justifyContent: items.length === 1 ? 'flex-start' : 'center'
-        }}>
+        }} >
           {items.map(postcad => (
-  <div key={postcad.idpost} style={styles.card}>
+  <div key={postcad.idpost} style={styles.card} onClick={() => openModal(postcad)}  >
     {postcad.imagem ? (
       <img
         src={`data:image/jpeg;base64,${postcad.imagem}`}
@@ -98,8 +105,14 @@ const CardList: React.FC = () => {
     </div>
   </div>
 ))}
-
         </div>
+      )}
+      {selectedPost && (
+        <ModalCard
+          isOpen={!!selectedPost}
+          onClose={closeModal}
+          post={selectedPost} // Passando o post específico
+        />
       )}
     </div>
   );

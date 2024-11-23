@@ -1,24 +1,14 @@
 "use client";
 
+import { postcad } from "@/entity/postcad";
 import { usuariocad } from "@/entity/usuariocad";
 import React, { CSSProperties } from "react";
 import { HiX } from "react-icons/hi";
 
-interface Postcad {
-  idpost: number;
-  titulo: string;
-  descricao: string;
-  nome_causa: string;
-  imagem?: string;
-  chavepix?: string; 
-  contato?: string; 
-  usuario: usuariocad;
-}
-
 interface ModalCardProps {
   isOpen: boolean;
   onClose: () => void;
-  post: Postcad;
+  post: postcad;
 }
 
 const styles: { [key: string]: CSSProperties } = {
@@ -174,7 +164,7 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
 
   return (
     <div style={styles.overlay} onClick={onClose}>
-      <div style={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
+      <div style={styles.modalContainer} onClick={(e) => e.stopPropagation()} {...post}>
         <HiX style={styles.closeButton} onClick={onClose} />
         <h3 style={styles.modalCardTitle}>{post.titulo}</h3>
         <p style={styles.modalTextEmail}>{post.usuario.email}</p>
