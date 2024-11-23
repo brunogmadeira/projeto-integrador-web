@@ -35,7 +35,7 @@ const Input = () => {
       token: "",
     };
 
-    const response = await fetch('http://localhost:8080/user/novouser', {
+    const response = await fetch('https://projeto-integrador-web-production.up.railway.app/user/novouser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

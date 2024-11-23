@@ -65,7 +65,7 @@ const Form: React.FC = () => {
     };
 
     try {
-      const response = await axios.put('http://localhost:8080/api/postcad/save', formData, {
+      const response = await axios.put('https://projeto-integrador-web-production.up.railway.app/api/postcad/save', formData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

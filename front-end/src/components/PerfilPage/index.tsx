@@ -159,7 +159,7 @@ const Perfil = () => {
     try {
       setLoading(true);
       setPostCad((prevPosts) => prevPosts.filter((post) => post.idpost !== id));
-      const response = await axios.delete(`http://localhost:8080/api/postcad/deletepost/${id}`, {
+      const response = await axios.delete(`https://projeto-integrador-web-production.up.railway.app/api/postcad/deletepost/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -183,7 +183,7 @@ const Perfil = () => {
 
   const fetchPostData = async () => {
     try {
-      const response = await axios.get<postcad[]>("http://localhost:8080/api/postcad/list", {
+      const response = await axios.get<postcad[]>("https://projeto-integrador-web-production.up.railway.app/api/postcad/list", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -200,7 +200,7 @@ const Perfil = () => {
     if (titulo.length > 0) {
       setLoading(true);
       try {
-        const response = await axios.get<postcad[]>(`http://localhost:8080/api/postcad/list/filtro/` + titulo, {
+        const response = await axios.get<postcad[]>(`https://projeto-integrador-web-production.up.railway.app/api/postcad/list/filtro/` + titulo, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
