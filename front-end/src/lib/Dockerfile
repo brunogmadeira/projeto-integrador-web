@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instalar as dependências
-RUN npm install
+RUN npm install --omit=dev
 
 # Instalar TypeScript globalmente (se necessário)
 RUN npm install -g typescript
@@ -18,6 +18,8 @@ RUN npm install -g eslint
 
 # Copiar o restante dos arquivos do projeto
 COPY . .
+
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build do Next.js (gerar os arquivos estáticos)
 RUN npm run build
