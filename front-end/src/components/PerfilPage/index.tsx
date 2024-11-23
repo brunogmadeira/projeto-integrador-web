@@ -154,6 +154,7 @@ const Perfil = () => {
   const [titulo, setTitulo] = useState<string>("");
 
   const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+  
 
   const removePost = async (id: number) => {
     try {
@@ -183,7 +184,7 @@ const Perfil = () => {
 
   const fetchPostData = async () => {
     try {
-      const response = await axios.get<postcad[]>("https://projeto-integrador-web-production.up.railway.app/api/postcad/list/iduser/" + localStorage.getItem("id"), {
+      const response = await axios.get<postcad[]>("https://projeto-integrador-web-production.up.railway.app/api/postcad/list/iduser/" + localStorage.getItem("usuarioId"), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
