@@ -145,6 +145,56 @@ const styles: { [key: string]: CSSProperties } = {
     color: '#95bf47',
     textAlign: 'center',
   },
+   profileCard: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "80%",
+    maxWidth: "600px",
+    backgroundColor: "#fff",
+    border: "2px solid #95bf47",
+    borderRadius: "12px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    padding: "20px",
+    marginBottom: "40px",
+  },
+  profileIconContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#f2f2f2",
+    borderRadius: "50%",
+    width: "100px",
+    height: "100px",
+    border: "2px solid #95bf47",
+  },
+  profileIcon: {
+    fontSize: "50px",
+    color: "#95bf47",
+  },
+  profileInfo: {
+    flex: 1,
+    marginLeft: "20px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
+  profileName: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#333",
+    margin: 0,
+  },
+  profileEmail: {
+    fontSize: "14px",
+    color: "#666",
+    margin: 0,
+  },
+  profileDescription: {
+    fontSize: "16px",
+    color: "#333",
+    lineHeight: "1.5",
+  },
 };
 
 const Perfil = () => {
@@ -186,59 +236,63 @@ const Perfil = () => {
   }, []);
 
   return (
-    <div style={styless.container}>
-      <div style={styless.profile}>
-        <FaPaw style={styless.icon} />
-        <p style={styless.name}>{usuarioName}</p>
-        <p style={{ ...styless.email, marginTop: "-5px" }}>{usuarioEmail}</p>
-      </div>
-      <div style={styles.container}>
-        {postCad.length === 0 ? (
-          <div style={styles.noItemsMessage}>
-            Nenhum post encontrado.
-          </div>
-        ) : (
-          <div style={{
-            ...styles.cardList,
-            justifyContent: postCad.length === 1 ? 'flex-start' : 'center',
-          }}>
-            {postCad.map(postcad => (
-              <div key={postcad.idpost} style={styles.card} onClick={() => openModal(postcad)}  >
-                {postcad.imagem ? (
-                  <img
-                    src={`data:image/jpeg;base64,${postcad.imagem}`}
-                    alt="Imagem do post"
-                    style={styles.image}
-                  />
-                ) : (
-                  <img
-                    src="/assets/images/post-ong/dog.png"
-                    alt="Imagem padrão"
-                    style={styles.image}
-                  />
-                )}
-                <div style={styles.cardContent}>
-                  <h3 style={styles.title}>{postcad.titulo}</h3>
-                  <p style={styles.description}>
-                    Descrição: {postcad.descricao}
-                  </p>
-                  <p style={styles.description}>
-                    Nome: {postcad.nome_causa}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-        {selectedPost && (
-        <ModalCard
-          isOpen={!!selectedPost}
-          onClose={closeModal}
-          post={selectedPost} // Passando o post específico
-        />
-      )}
-      </div>
+<div style={styless.container}>
+  {/* Card do Usuário */}
+  <div style={styles.profileCard}>
+    <div style={styles.profileIconContainer}>
+      <FaPaw style={styles.profileIcon} />
     </div>
+    <div style={styles.profileInfo}>
+      <h2 style={styles.profileName}>{usuarioName}</h2>
+      <p style={styles.profileEmail}>{usuarioEmail}</p>
+      <p style={styles.profileDescription}>
+        Bem-vindo(a) à nossa plataforma! Aqui você pode criar e gerenciar causas em prol dos animais.
+      </p>
+    </div>
+  </div>
+
+  {/* Lista de Posts */}
+  <div style={styles.container}>
+    {postCad.length === 0 ? (
+      <div style={styles.noItemsMessage}>
+        Nenhum post encontrado.
+      </div>
+    ) : (
+      <div
+        style={{
+          ...styles.cardList,
+          justifyContent: postCad.length === 1 ? "flex-start" : "center",
+        }}
+      >
+        {postCad.map((postcad) => (
+          <div key={postcad.idpost} style={styles.card} onClick={() => openModal(postcad)}>
+            {postcad.imagem ? (
+              <img
+                src={`data:image/jpeg;base64,${postcad.imagem}`}
+                alt="Imagem do post"
+                style={styles.image}
+              />
+            ) : (
+              <img
+                src="/assets/images/post-ong/dog.png"
+                alt="Imagem padrão"
+                style={styles.image}
+              />
+            )}
+            <div style={styles.cardContent}>
+              <h3 style={styles.title}>{postcad.titulo}</h3>
+              <p style={styles.description}>Descrição: {postcad.descricao}</p>
+              <p style={styles.description}>Nome: {postcad.nome_causa}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+    {selectedPost && (
+      <ModalCard isOpen={!!selectedPost} onClose={closeModal} post={selectedPost} />
+    )}
+  </div>
+</div>
   );
 };
 

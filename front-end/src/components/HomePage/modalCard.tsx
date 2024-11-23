@@ -12,103 +12,6 @@ interface ModalCardProps {
 }
 
 const styles: { [key: string]: CSSProperties } = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "20px",
-    minWidth: "100%",
-  },
-  cardListWrapper: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "16px",
-    justifyContent: "center", // Pode ser alterado dinamicamente
-    marginTop: "20px",
-    maxWidth: "45%",
-    minWidth: "100%",
-  },
-  card: {
-    display: "flex",
-    borderRadius: "8px",
-    overflow: "hidden",
-    width: "45%",
-    minWidth: "45%",
-    minHeight: "300px",
-    height: "auto",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-    border: "3px solid #95bf47",
-  },
-  cardImage: {
-    margin: "5%",
-    width: "230px",
-    height: "230px",
-    objectFit: "cover",
-    borderRadius: "8px",
-    border: "2px solid #95bf47",
-  },
-  cardContent: {
-    padding: "16px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    flexGrow: 1,
-  },
-  cardTitle: {
-    textAlign: "left",
-    fontSize: "20px",
-    fontWeight: "bold",
-    color: "#95bf47",
-  },
-  cardDescription: {
-    textAlign: "left",
-    fontSize: "14px",
-    marginTop: "8px",
-    color: "black",
-    minHeight: "80px",
-  },
-  noItemsMessage: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#95bf47",
-    textAlign: "center",
-  },
-  titleContainer: {
-    width: "100%",
-    border: "3px solid #95bf47",
-    borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: "20px",
-  },
-  searchForm: {
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-  },
-  searchInput: {
-    border: "none",
-    padding: "4px 16px",
-    width: "100%",
-    height: "30px",
-    backgroundColor: "#D9D9D9",
-    color: "#4F4F4F",
-    fontSize: "16px",
-    textAlign: "center",
-  },
-  searchButton: {
-    marginLeft: "8px",
-    padding: "6px 12px",
-    backgroundColor: "#95bf47",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
   overlay: {
     position: "fixed",
     top: 0,
@@ -119,44 +22,60 @@ const styles: { [key: string]: CSSProperties } = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 1000, // Garante que o modal fique sobreposto a outros elementos
   },
   modalContainer: {
-    background: "white",
-    borderRadius: "8px",
-    border: "1px solid #95bf47",
+    backgroundColor: "#ffffff",
+    borderRadius: "10px",
+    border: "3px solid #95bf47",
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
     padding: "20px",
-    width: "600px",
+    width: "500px",
+    maxWidth: "90%",
     maxHeight: "80vh",
     overflowY: "auto",
-    color: "black",
-  },
-  modalImage: {
-    maxWidth: "100%",
-    height: "auto",
-    marginBottom: "15px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px", // Reduz o espaçamento geral entre os itens
   },
   closeButton: {
     cursor: "pointer",
-    float: "right",
+    alignSelf: "flex-end",
     color: "#95bf47",
-    fontSize: "23px",
-    marginBottom: "15px",
+    fontSize: "24px",
   },
   modalCardTitle: {
-    textAlign: "center",
-    fontSize: "25px",
+    fontSize: "22px",
     fontWeight: "bold",
-    color: "#95bf47",
+    color: "#4F4F4F",
+    textAlign: "center",
+    marginBottom: "2px", // Reduz o espaço entre título e e-mail
+  },
+  modalTextEmail: {
+    color: "#6D6D6D",
+    fontSize: "14px",
+    textAlign: "center",
+    fontStyle: "italic",
+    marginBottom: "8px", // Ajuste fino no espaçamento abaixo do e-mail
+  },
+  modalImage: {
+    maxWidth: "100%",
+    maxHeight: "200px",
+    borderRadius: "10px",
+    border: "2px solid #95bf47",
+    objectFit: "cover",
+    alignSelf: "center",
   },
   modalText: {
-    whiteSpace: "pre-wrap",
-    wordWrap: "break-word",
+    color: "#4F4F4F",
+    fontSize: "16px",
+    lineHeight: "1.5",
+    margin: "0", // Remove espaçamento extra entre parágrafos
   },
-  modalTextEmail:{
-    color: '#000',
-    fontSize: '12px',
-    alignItems: 'flex-start'
-  }
+  modalPixInfo: {
+    color: "#95bf47",
+    fontWeight: "bold",
+  },
 };
 
 const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
@@ -164,7 +83,10 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
 
   return (
     <div style={styles.overlay} onClick={onClose}>
-      <div style={styles.modalContainer} onClick={(e) => e.stopPropagation()} {...post}>
+      <div
+        style={styles.modalContainer}
+        onClick={(e) => e.stopPropagation()}
+      >
         <HiX style={styles.closeButton} onClick={onClose} />
         <h3 style={styles.modalCardTitle}>{post.titulo}</h3>
         <p style={styles.modalTextEmail}>{post.usuario.email}</p>
@@ -175,10 +97,17 @@ const ModalCard: React.FC<ModalCardProps> = ({ isOpen, onClose, post }) => {
             alt="Imagem do post"
           />
         )}
-        <p style={styles.modalText}>{post.nome_causa}</p>
+        <p style={styles.modalText}>
+          <strong>Causa:</strong> {post.nome_causa}
+        </p>
         <p style={styles.modalText}>{post.descricao}</p>
-        <p style={styles.modalText}>Chave pix: {post.chavepix ? post.chavepix : 'Sem chave informada'}</p>
-        <p style={styles.modalText}>Contato: {post.contato}</p>
+        <p style={styles.modalText}>
+          <span style={styles.modalPixInfo}>Chave Pix:</span>{" "}
+          {post.chavepix ? post.chavepix : "Sem chave informada"}
+        </p>
+        <p style={styles.modalText}>
+          <strong>Contato:</strong> {post.contato}
+        </p>
       </div>
     </div>
   );

@@ -79,32 +79,56 @@ const CardList: React.FC = () => {
           ...styles.cardList,
           justifyContent: items.length === 1 ? 'flex-start' : 'center'
         }} >
-          {items.map(postcad => (
-  <div key={postcad.idpost} style={styles.card} onClick={() => openModal(postcad)}  >
-    {postcad.imagem ? (
-      <img
-        src={`data:image/jpeg;base64,${postcad.imagem}`}
-        alt="Imagem do post"
-        style={styles.image}
-      />
-    ) : (
-      <img
-        src="/assets/images/post-ong/dog.png"
-        alt="Imagem padrão"
-        style={styles.image}
-      />
-    )}
-    <div style={styles.cardContent}>
-      <h3 style={styles.title}>{postcad.titulo}</h3>
-      <p style={styles.description}>
-        Descrição: {postcad.descricao} 
-      </p>
-      <p style={styles.description}>
-        Nome: {postcad.nome_causa}
-      </p>
+<div style={styles.gridContainer}>
+  {items.map(postcad => (
+    <div key={postcad.idpost} style={styles.card}>
+      <div style={styles.imageContainer}>
+        {postcad.imagem ? (
+          <img
+            src={`data:image/jpeg;base64,${postcad.imagem}`}
+            alt="Imagem do post"
+            style={styles.image}
+          />
+        ) : (
+          <img
+            src="/assets/images/post-ong/dog.png"
+            alt="Imagem padrão"
+            style={styles.image}
+          />
+        )}
+      </div>
+      <div style={styles.cardContent}>
+        <h3 style={styles.title}>{postcad.titulo}</h3>
+        <p style={styles.description}>
+          <strong>Nome da Causa:</strong> {postcad.nome_causa}
+        </p>
+        <p style={styles.description}>
+          <strong>Descrição:</strong> {postcad.descricao}
+        </p>
+        <p style={styles.description}>
+          <strong>Chave PIX:</strong> {postcad.chavepix || 'Não informado'}
+        </p>
+        <p style={styles.description}>
+          <strong>Contato:</strong> {postcad.contato || 'Não informado'}
+        </p>
+        <p style={styles.description}>
+          <strong>Filtro Animal:</strong> {postcad.filtro_animal || 'Não informado'}
+        </p>
+        <p style={styles.description}>
+          <strong>Filtro Raça:</strong> {postcad.filtro_raca || 'Não informado'}
+        </p>
+        <p style={styles.description}>
+          <strong>Filtro Porte:</strong> {postcad.filtro_porte || 'Não informado'}
+        </p>
+        <p style={styles.description}>
+          <strong>Filtro Causa:</strong> {postcad.filtro_causa || 'Não informado'}
+        </p>
+      </div>
     </div>
-  </div>
-))}
+  ))}
+</div>
+
+
         </div>
       )}
       {selectedPost && (
@@ -135,46 +159,6 @@ const styles: { [key: string]: CSSProperties } = {
     maxWidth: '45%',
     minWidth: '100%'
   },
-  card: {
-    display: 'flex',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    width: '45%',
-    minWidth: '45%',
-    minHeight: '300px',
-    height: 'auto',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    border: '3px solid #95bf47',
-  },
-  image: {
-    margin: '5%',
-    width: '230px',
-    height: '230px',
-    objectFit: 'cover',
-    borderRadius: '8px',
-    border: '2px solid #95bf47',
-  },
-  cardContent: {
-    padding: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    flexGrow: 1,
-  },
-  title: {
-    textAlign: 'left',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#95bf47',
-  },
-  description: {
-    textAlign: 'left',
-    fontSize: '14px',
-    marginTop: '8px',
-    color: 'black',
-    minHeight: '80px',
-  },
   titleContainer: {
     width: '100%',
     border: '3px solid #95bf47',
@@ -190,6 +174,54 @@ const styles: { [key: string]: CSSProperties } = {
     fontSize: '18px',
     color: '#95bf47',
     textAlign: 'center',
+  },
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(600px, 1fr))', 
+    gap: '16px', 
+    justifyContent: 'center',
+    width: '100%',
+    padding: '16px',
+  },
+  card: {
+    display: 'flex',
+    flexDirection: 'row', 
+    alignItems: 'flex-start',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    minHeight: '230px',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+    border: '3px solid #95bf47',
+    padding: '16px',
+    background: '#fff',
+  },
+  imageContainer: {
+    flexShrink: 0,
+    marginRight: '16px',
+  },
+  image: {
+    width: '230px',
+    height: '230px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+    border: '2px solid #95bf47',
+  },
+  cardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    flexGrow: 1,
+  },
+  title: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#95bf47',
+    marginBottom: '8px',
+  },
+  description: {
+    fontSize: '14px',
+    color: 'black',
+    marginBottom: '8px',
   },
 };
 
