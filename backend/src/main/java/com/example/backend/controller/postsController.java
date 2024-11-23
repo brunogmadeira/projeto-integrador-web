@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.backend.entity.postCad;
+import com.example.backend.entity.usuarioCad;
 import com.example.backend.repository.postsRepository;
 import com.example.backend.repository.userRepository;
 import org.apache.coyote.Response;
@@ -44,6 +45,12 @@ public class postsController {
     public ResponseEntity<Optional<postCad>> getPost(@PathVariable int id){
         Optional<postCad> post = postcadRp.findById(id);
         return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/getuser/{id}")
+    public ResponseEntity<Optional<usuarioCad>> getuser(@PathVariable int id){
+        Optional<usuarioCad> user = userRp.findById(id);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping("/save")

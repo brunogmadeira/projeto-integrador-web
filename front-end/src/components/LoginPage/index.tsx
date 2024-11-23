@@ -32,6 +32,7 @@ const Input = () => {
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('usuarioName', data.nome);
         localStorage.setItem('usuarioEmail', data.user);
+        localStorage.setItem('usuarioId', data.id);
         router.push('/sobre');
       } else {
         console.error('Erro no login:', response.status);

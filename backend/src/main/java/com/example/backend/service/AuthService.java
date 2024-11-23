@@ -29,9 +29,9 @@ public class AuthService {
             Authentication authentication = authenticationManager.authenticate(userAuth);
             UserDetailImpl userAuthenticate = (UserDetailImpl) authentication.getPrincipal();
             String token = jwtUtils.generateTokenFromUserDetailsImpl(userAuthenticate);
-            usuarioCad nome = userRespository.findByEmail(authDto.getUsername()).get();
+            usuarioCad usuario = userRespository.findByEmail(authDto.getUsername()).get();
 
-            AcessDTO acessDTO = new AcessDTO(token,nome);
+            AcessDTO acessDTO = new AcessDTO(token,usuario);
             return acessDTO;
         }catch (BadCredentialsException e){
             //TODO

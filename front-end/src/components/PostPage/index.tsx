@@ -16,17 +16,18 @@ const Form: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [imageBase64, setImageBase64] = useState<string>('');
   const token = typeof window !== 'undefined' ? localStorage.getItem("authToken") : null;
-
-
-
+  
+  const id = typeof window !== 'undefined' ? localStorage.getItem("usuarioId") : null;
+  const usuarioId = id ? parseInt(id, 10) : undefined;
+  
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/\D/g, '');
     const formattedPhone = input
       .replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3')
       .slice(0, 15);
-    setContato(formattedPhone);
+      setContato(formattedPhone);
   };
-
+  
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -41,10 +42,14 @@ const Form: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!usuarioId) {
+      console.error("ID do usuário não encontrado ou inválido!");
+      return;
+    }
     const formData: postcad = {
       idpost: 0,
       usuario: {
-        idusuario: 1,
+        idusuario: usuarioId,
       },
       titulo: title || 'Título Padrão',
       nome_causa: petName || 'Nome da Causa Padrão',
