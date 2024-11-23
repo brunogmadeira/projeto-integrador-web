@@ -72,9 +72,9 @@ public class postsController {
     }
 
     @DeleteMapping("/deletepost/{id}")
-    public ResponseEntity<postCad> deletePost(@PathVariable int id){
+    public ResponseEntity<Void> deletePost(@PathVariable Integer id) {
          postcadRp.deleteById(id);
-         return (ResponseEntity<postCad>) ResponseEntity.ok();
+        return ResponseEntity.noContent().build();  // Resposta correta com código HTTP 204
     }
 
 

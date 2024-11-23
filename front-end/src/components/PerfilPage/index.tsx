@@ -132,7 +132,18 @@ const styles: { [key: string]: CSSProperties } = {
     textAlign: "center",
   },
   imageContainer: {
-    marginRight: '20px', // Espaçamento entre a imagem e o texto
+    marginRight: '20px',
+  },
+  removeButton: {
+    marginTop: "12px",
+    padding: "8px 16px",
+    backgroundColor: "#e74c3c",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "14px",
+    alignSelf: "flex-start",
   },
 };
 
@@ -141,15 +152,30 @@ const Perfil = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [titulo, setTitulo] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<postcad | null>(null);
+
   const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
-  const openModal = (post: postcad) => {
-    setSelectedPost(post);
+  const removePost = async (id: number) => {
+    try {
+      setLoading(true);
+      setPostCad((prevPosts) => prevPosts.filter((post) => post.idpost !== id));
+      const response = await axios.delete(`http://localhost:8080/api/postcad/deletepost/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        fetchPostData();
+      }
+    } catch (err) {
+      setError("Erro ao remover o post.");
+      fetchPostData(); 
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const closeModal = () => setSelectedPost(null);
+  
 
   useEffect(() => {
     fetchPostData();
@@ -221,7 +247,7 @@ const Perfil = () => {
             }}
           >
             {postCad.map((post) => (
-              <div key={post.idpost} style={styles.card} onClick={() => openModal(post)}>
+              <div key={post.idpost} style={styles.card}>
                 <div style={styles.imageContainer}>
                   {post.imagem ? (
                     <img
@@ -258,24 +284,16 @@ const Perfil = () => {
                       <strong>Filtro Raça:</strong> {post.filtro_raca}
                     </p>
                   )}
-                  {post.filtro_porte && (
-                    <p style={styles.description}>
-                      <strong>Filtro Porte:</strong> {post.filtro_porte}
-                    </p>
-                  )}
-                  {post.filtro_causa && (
-                    <p style={styles.description}>
-                      <strong>Filtro Causa:</strong> {post.filtro_causa}
-                    </p>
-                  )}
-              </div>
-
+                  <button
+                    style={styles.removeButton}
+                    onClick={() => removePost(post.idpost)}
+                  >
+                    Remover
+                  </button>
+                </div>
               </div>
             ))}
           </div>
-        )}
-        {selectedPost && (
-          <ModalCard isOpen={!!selectedPost} onClose={closeModal} post={selectedPost} />
         )}
       </div>
     </div>
