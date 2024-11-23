@@ -255,13 +255,31 @@ const Perfil = () => {
                 <div style={styles.cardContent}>
                   <h3 style={styles.title}>{post.titulo}</h3>
                   <p style={styles.description}>{post.descricao}</p>
+                  <p style={styles.description}>
+                    <strong>Chave PIX:</strong> {post.chavepix || 'Não informado'}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Contato:</strong> {post.contato || 'Não informado'}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Filtro Animal:</strong> {post.filtro_animal || 'Não informado'}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Filtro Raça:</strong> {post.filtro_raca || 'Não informado'}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Filtro Porte:</strong> {post.filtro_porte || 'Não informado'}
+                  </p>
+                  <p style={styles.description}>
+                    <strong>Filtro Causa:</strong> {post.filtro_causa || 'Não informado'}
+                  </p>
                   <button
                     style={styles.removeButton}
                     onClick={() => removePost(post.idpost)}
                   >
                     Remover
                   </button>
-                  <button onClick={() => openModal(post)}>Ver mais</button>
+                  <button onClick={() => openModal(post)} style={styles.description}>Ver mais</button>
                 </div>
               </div>
             ))}
