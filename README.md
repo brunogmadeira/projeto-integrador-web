@@ -1,26 +1,37 @@
-Link Do Projeto : https://projeto-integrador-web-production-3fb3.up.railway.app/login
+# Miados, Latidos & Cia
 
-## Padrões para Commits :
+## Sobre o Projeto  
+O projeto Miados, Latidos & Cia foi desenvolvido para ajudar uma ONG no processo de adoção de animais, promovendo a conexão entre animais resgatados e seus futuros lares. A aplicação permite o gerenciamento completo dos animais, cadastro de interessados, agendamento de visitas e outras funcionalidades, tudo em uma interface amigável e acessível.
 
-- Feature:  `feat: Adiciona uma nova funcionalidade.`
+---
 
-- Bugfix: `fix: Corrige um bug`
+## Tecnologias Utilizadas  
 
-- Release: `release: Prepara uma nova versão para o deploy.`
+- **TypeScript**: Linguagem para construção de código tipado, seguro e escalável no front-end.
+- **Java**: Tecnologia robusta para desenvolvimento do back-end, garantindo performance e segurança.
+- **Docker**: Utilizado para contêinerização, facilitando implantação e manutenção de um ambiente consistente.
 
-- Hotfix: `hotfix: Corrige um bug crítico em produção.`
+---
 
-- Refactoring: `refactor: Refatora o código existente.`
+## Funcionalidades  
 
-- Documentation: `docs: Atualiza a documentação.`
+1. **Portal de Adoção**:
+   - Listagem de animais disponíveis com filtros por idade, raça e comportamento.
+   - Exibição de informações detalhadas e fotos de cada animal.
 
-- Style: `style: Faz ajustes de estilo (formatação, ponto e vírgula, etc.).`
+2. **Sistema de Gerenciamento**:
+   - Cadastro e edição de informações dos animais.
+   - Controle de status de adoção, como disponível, em processo ou adotado.
+   - Gerenciamento de perfis de usuários e adotantes.
 
-- Test: test: `Adiciona ou modifica testes.`
+3. **Agendamento de Visitas**:
+   - Ferramenta para agendar visitas com base na disponibilidade da ONG.
+   - Notificações para confirmar ou lembrar datas.
 
-- Chore: `chore: Tarefas de manutenção ou outras atividades não diretamente ligadas a funcionalidades ou correções de bugs.`
+4. **Área para Interessados**:
+   - Cadastro e acompanhamento de solicitações de adoção.
+   - Histórico de interações e informações sobre os animais adotados.
 
-## Exemplo de commit :
+---
+   
 
-`git add .
-git commit -m "feat: botão para cadastro"`
